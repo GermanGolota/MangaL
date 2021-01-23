@@ -42,6 +42,7 @@ namespace MangaLWebAPI
             services.AddSingleton<IHasher, Hasher>();
 
             services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IMangaServices, MangaServices>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

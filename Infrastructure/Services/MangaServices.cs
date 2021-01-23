@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
-    public class MangaServices
+    public class MangaServices : IMangaServices
     {
         private readonly IMangaRepo _repo;
 
