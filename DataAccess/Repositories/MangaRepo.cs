@@ -27,24 +27,32 @@ namespace DataAccess.Repositories
                 MangaId = mangaId
             };
 
-            List<Manga> matches = await _client.LoadData<Manga, dynamic>
+            List<MangaInfoModel> matches = await _client.LoadData<MangaInfoModel, dynamic>
                 (sql, parameters, CancellationToken.None);
             if (matches.Count == 0)
             {
-                //can't find manga
+                throw new Exception("Can't find that manga");
                 return null;
             }
-            var firstMatch = matches.First();
+            var output = matches.First();
 
-            MangaInfoModel output = new MangaInfoModel
-            {
-                Desription = firstMatch.Description,
-                MangaTitle = firstMatch.MangaTitle
-            };
+            List<ChapterInfoModel> chapters =  await LoadChaptersInfoFor(mangaId);
+
+            output.Chapters = chapters;
 
             return output;
         }
+        private async Task<List<ChapterInfoModel>> LoadChaptersInfoFor(string mangaId)
+        {
+            string sql = @"SELECT ChapterName, ChapterNumber FROM Chapters WHERE MangaId = @MangaId";
 
+            var parameters = new
+            {
+                MangaId = mangaId
+            };
+
+            return await _client.LoadData<ChapterInfoModel, dynamic>(sql, parameters, CancellationToken.None);
+        }
         public async Task SaveManga(Manga manga)
         {
             await SaveMangaInfo(manga);
