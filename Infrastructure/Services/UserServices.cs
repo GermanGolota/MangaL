@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.Entities;
 using DataAccess.Repositories;
 using Infrastructure.Hashing;
 using Infrastructure.Models;
