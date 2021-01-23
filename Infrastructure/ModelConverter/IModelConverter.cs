@@ -10,7 +10,7 @@ namespace Infrastructure.ModelConverter
     public interface IModelConverter
     {
         Manga ConvertMangaFromDTO(MangaAdditionModel dto);
-
         Task<User> ConvertUserFromDTOAsync(UserRegistrationModel dto);
+        Chapter ConvertChapterFromDTO(ChapterModel dto, string mangaId);
     }
 }

@@ -16,6 +16,36 @@ namespace Infrastructure.ModelConverter
         {
             this._hasher = hasher;
         }
+
+        public Chapter ConvertChapterFromDTO(ChapterModel chapter, string mangaId)
+        {
+            List<Picture> pictures = new List<Picture>();
+
+            foreach (var picture in chapter.Pictures)
+            {
+                pictures.Add(ConvertPictureFromDTO(picture, mangaId));
+            }
+
+            return new Chapter
+            {
+                ChapterName = chapter.ChapterName,
+                ChapterNumber = chapter.ChapterNumber,
+                Id = Guid.NewGuid().ToString(),
+                MangaId = mangaId,
+                Pictures = pictures
+            };
+        }
+        private Picture ConvertPictureFromDTO(PictureModel picture, string mangaId)
+        {
+            string pictureId = Guid.NewGuid().ToString();
+            return new Picture
+            {
+                Id = pictureId,
+                ImageLocation = picture.ImageLink,
+                MangaId = mangaId,
+                PictureOrder = picture.Order
+            };
+        }
         public Manga ConvertMangaFromDTO(MangaAdditionModel mangaModel)
         {
             string mangaId = Guid.NewGuid().ToString();
@@ -24,31 +54,8 @@ namespace Infrastructure.ModelConverter
 
             foreach (var chapter in mangaModel.Chapters)
             {
-                List<Picture> pictures = new List<Picture>();
-
-                foreach (var picture in chapter.Pictures)
-                {
-                    string pictureId = Guid.NewGuid().ToString();
-                    pictures.Add(new Picture
-                    {
-                        Id = pictureId,
-                        ImageLocation = picture.ImageLink,
-                        MangaId = mangaId,
-                        PictureOrder = picture.Order
-                    });
-                }
-
-
-                chapters.Add(new Chapter
-                {
-                    ChapterName = chapter.ChapterName,
-                    ChapterNumber = chapter.ChapterNumber,
-                    Id = Guid.NewGuid().ToString(),
-                    MangaId = mangaId,
-                    Pictures = pictures
-                });
+                chapters.Add(ConvertChapterFromDTO(chapter, mangaId));
             }
-
 
             Manga manga = new Manga
             {
@@ -60,7 +67,6 @@ namespace Infrastructure.ModelConverter
 
             return manga;
         }
-
         public async Task<User> ConvertUserFromDTOAsync(UserRegistrationModel userModel)
         {
             string userId = Guid.NewGuid().ToString();
