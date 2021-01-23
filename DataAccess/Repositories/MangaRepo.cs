@@ -44,7 +44,7 @@ namespace DataAccess.Repositories
         }
         private async Task<List<ChapterInfoModel>> LoadChaptersInfoFor(string mangaId)
         {
-            string sql = @"SELECT ChapterName, ChapterNumber FROM Chapters WHERE MangaId = @MangaId";
+            string sql = @"SELECT ChapterName, ChapterNumber, Id FROM Chapters WHERE MangaId = @MangaId";
 
             var parameters = new
             {
