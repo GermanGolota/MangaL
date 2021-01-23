@@ -71,10 +71,17 @@ namespace DataAccess.Repositories
         {
             foreach (var chapter in manga.Chapters)
             {
-                await SaveChapterInfo(chapter);
-
-                await SaveChapterPictures(chapter);
+                await SaveChapter(chapter);
             }
+        }
+        /// <summary>
+        /// Id of the manga should be already set for this to work!
+        /// </summary>
+        public async Task SaveChapter(Chapter chapter)
+        {
+            await SaveChapterInfo(chapter);
+
+            await SaveChapterPictures(chapter);
         }
         private async Task SaveChapterInfo(Chapter chapter)
         {

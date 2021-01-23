@@ -11,5 +11,6 @@ namespace DataAccess.Repositories
     {
         Task<MangaInfoModel> FindMangaInfoByIDAsync(string mangaId);
         Task SaveManga(Manga manga);
+        Task SaveChapter(Chapter chapter);
     }
 }
