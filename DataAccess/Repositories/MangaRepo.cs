@@ -24,7 +24,7 @@ namespace DataAccess.Repositories
 
             var parameters = new
             {
-                MangaId = mangaId 
+                MangaId = mangaId
             };
 
             List<Manga> matches = await _client.LoadData<Manga, dynamic>
@@ -32,8 +32,10 @@ namespace DataAccess.Repositories
             if (matches.Count == 0)
             {
                 //can't find manga
+                return null;
             }
             var firstMatch = matches.First();
+
             MangaInfoModel output = new MangaInfoModel
             {
                 Desription = firstMatch.Description,
@@ -41,6 +43,53 @@ namespace DataAccess.Repositories
             };
 
             return output;
+        }
+
+        public async Task SaveManga(Manga manga)
+        {
+            await SaveMangaInfo(manga);
+
+            await SaveMangaPictures(manga);
+
+            //should not contain comments by that point
+        }
+        private async Task SaveMangaInfo(Manga manga)
+        {
+            var parameters = new
+            {
+                Id = manga.Id,
+                Title = manga.MangaTitle,
+                Description = manga.Description
+            };
+            string sql = @"INSERT INTO Mangas(Id, Title, Description) VALUES(@Id, @Title, @Description)";
+
+            await _client.SaveData<dynamic>(sql, parameters, CancellationToken.None);
+        }
+        private async Task SaveMangaPictures(Manga manga)
+        {
+            string mangaId = manga.Id;
+            List<Task> insertOperations = new List<Task>();
+            foreach (var picture in manga.Pictures)
+            {
+                insertOperations.Add(
+                    new Task(async () => await InsertPicture(picture))
+                );
+            }
+            await Task.WhenAll(insertOperations);
+        }
+        private async Task InsertPicture(Picture picture)
+        {
+            string sql = @"INSERT INTO Pictures(Id, MangaId, PictureOrder, ImageLocation)" +
+                            @"VALUES(@Id, @MangaId, @PictureOrder, @ImageLocation)";
+            var parameters = new
+            {
+                Id = picture.Id,
+                MangaId = picture.MangaId,
+                PicturesOrder = picture.PictureOrder,
+                ImageLocation = picture.ImageLocation
+            };
+
+            await _client.SaveData<dynamic>(sql, parameters, CancellationToken.None);
         }
     }
 }
