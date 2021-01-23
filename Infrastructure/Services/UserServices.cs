@@ -2,6 +2,7 @@
 using Core.Entities;
 using DataAccess.Repositories;
 using Infrastructure.Hashing;
+using Infrastructure.ModelConverter;
 using Infrastructure.Models;
 using System;
 using System.Collections.Generic;
@@ -12,26 +13,17 @@ namespace Infrastructure.Services
 {
     public class UserServices : IUserServices
     {
-        private readonly IHasher _hasher;
+        private readonly IModelConverter _converter;
         private readonly IUserRepo _repo;
 
-        public UserServices(IHasher hasher, IUserRepo repo)
+        public UserServices(IModelConverter converter, IUserRepo repo)
         {
-            this._hasher = hasher;
+            this._converter = converter;
             this._repo = repo;
         }
         public async Task RegisterUser(UserRegistrationModel userModel)
         {
-            string userId = Guid.NewGuid().ToString();
-
-            string passwordHash = await _hasher.Hash(userModel.Password);
-
-            User user = new User
-            {
-                Id = userId,
-                PasswordHash = passwordHash,
-                Username = userModel.Username
-            };
+            User user = await _converter.ConvertUserFromDTOAsync(userModel);
 
             await _repo.SaveUserAsync(user);
         }
