@@ -3,6 +3,7 @@ using DataAccess.Repositories;
 using Infrastructure.Hashing;
 using Infrastructure.Services;
 using MangaLWebAPI.Configuration;
+using MangaLWebAPI.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,17 +33,11 @@ namespace MangaLWebAPI
 
             services.AddSingleton<AppConfiguration>();
 
-            services.AddSingleton<ISQLClientFactory, SQLClientFactory>();
+            services.AddHashing();
 
-            services.AddScoped<ISQLClient>(x => x.GetRequiredService<ISQLClientFactory>().CreateClient());
+            services.AddRepositories();
 
-            services.AddScoped<IUserRepo, UserRepo>();
-
-            services.AddSingleton<HashAlgorithm>(MD5.Create());
-            services.AddSingleton<IHasher, Hasher>();
-
-            services.AddScoped<IUserServices, UserServices>();
-            services.AddScoped<IMangaServices, MangaServices>();
+            services.AddInfrastructureServices();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
