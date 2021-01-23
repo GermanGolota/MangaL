@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using DataAccess.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace DataAccess.Repositories
             this._client = client;
         }
 
-        public async Task<Manga> FindMangaInfoByIDAsync(string mangaId)
+        public async Task<MangaInfoModel> FindMangaInfoByIDAsync(string mangaId)
         {
             string sql = @"SELECT MangaTitle, Description FROM Mangas WHERE Id=@MangaId";
 
@@ -32,7 +33,14 @@ namespace DataAccess.Repositories
             {
                 //can't find manga
             }
-            return matches.First();
+            var firstMatch = matches.First();
+            MangaInfoModel output = new MangaInfoModel
+            {
+                Desription = firstMatch.Description,
+                MangaTitle = firstMatch.MangaTitle
+            };
+
+            return output;
         }
     }
 }

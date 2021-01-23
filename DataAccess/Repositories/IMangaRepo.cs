@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using DataAccess.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,6 @@ namespace DataAccess.Repositories
 {
     public interface IMangaRepo
     {
-        Task<Manga> FindMangaInfoByIDAsync(string mangaId);
+        Task<MangaInfoModel> FindMangaInfoByIDAsync(string mangaId);
     }
 }
