@@ -19,6 +19,14 @@ namespace Infrastructure.Services
             this._repo = repo;
             this._converter = converter;
         }
+
+        public async Task AddChapterToManga(ChapterModel chapterModel, string mangaId)
+        {
+            Chapter chapter = _converter.ConvertChapterFromDTO(chapterModel, mangaId);
+
+            await _repo.SaveChapter(chapter);
+        }
+
         public async Task SaveManga(MangaAdditionModel mangaModel)
         {
             Manga manga = _converter.ConvertMangaFromDTO(mangaModel);
