@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Infrastructure.Models
 {
-    public class MangaAdditionModel
+    public class MangaModel
     {
         public List<ChapterModel> Chapters { get; set; }
         public string MangaTitle { get; set; }

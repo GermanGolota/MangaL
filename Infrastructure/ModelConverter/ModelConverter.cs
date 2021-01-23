@@ -46,7 +46,7 @@ namespace Infrastructure.ModelConverter
                 PictureOrder = picture.Order
             };
         }
-        public Manga ConvertMangaFromDTO(MangaAdditionModel mangaModel)
+        public Manga ConvertMangaFromDTO(MangaModel mangaModel)
         {
             string mangaId = Guid.NewGuid().ToString();
 

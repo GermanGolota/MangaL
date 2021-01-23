@@ -27,7 +27,12 @@ namespace Infrastructure.Services
             await _repo.SaveChapter(chapter);
         }
 
-        public async Task SaveManga(MangaAdditionModel mangaModel)
+        public async Task<Manga> FindMangaByID(string mangaId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task SaveManga(MangaModel mangaModel)
         {
             Manga manga = _converter.ConvertMangaFromDTO(mangaModel);
 
