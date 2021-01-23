@@ -8,6 +8,6 @@ namespace Infrastructure.Services
     {
         Task SaveManga(MangaModel mangaModel);
         Task AddChapterToManga(ChapterModel chapter, string mangaId);
-        Task<MangaModel> FindMangaByID(string mangaId);
+        Task<MangaModel> FindMangaInfoByID(string mangaId);
     }
 }

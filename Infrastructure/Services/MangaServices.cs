@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using DataAccess.DTOs;
 using DataAccess.Repositories;
 using Infrastructure.ModelConverter;
 using Infrastructure.Models;
@@ -26,17 +27,20 @@ namespace Infrastructure.Services
 
             await _repo.SaveChapter(chapter);
         }
-
-        public async Task<Manga> FindMangaByID(string mangaId)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task SaveManga(MangaModel mangaModel)
         {
             Manga manga = _converter.ConvertMangaFromDTO(mangaModel);
 
             await _repo.SaveManga(manga);
+        }
+
+        public async Task<MangaModel> FindMangaInfoByID(string mangaId)
+        {
+            var info = await _repo.FindMangaInfoByIDAsync(mangaId);
+
+            MangaModel output = _converter.ConvertFromInfoModel(info);
+
+            return output;
         }
     }
 }
