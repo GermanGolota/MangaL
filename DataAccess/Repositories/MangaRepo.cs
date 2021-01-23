@@ -124,14 +124,5 @@ namespace DataAccess.Repositories
 
             await _client.SaveData<dynamic>(sql, parameters, CancellationToken.None);
         }
-
-        public async Task<Manga> LoadMangaById(string mangaId)
-        {
-            string sql = @"SELECT ";
-
-            Manga manga;
-
-            return manga;
-        }
     }
 }
