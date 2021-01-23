@@ -6,7 +6,7 @@ namespace Infrastructure.Models
 {
     public class MangaAdditionModel
     {
-        public List<PictureModel> PictureLinks { get; set; }
+        public List<ChapterModel> Chapters { get; set; }
         public string MangaTitle { get; set; }
         public string Description { get; set; }
     }

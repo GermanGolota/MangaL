@@ -20,26 +20,41 @@ namespace Infrastructure.Services
         {
             string mangaId = Guid.NewGuid().ToString();
 
-            List<Picture> pictures = new List<Picture>();
+            List<Chapter> chapters = new List<Chapter>();
 
-            foreach (var picture in mangaModel.PictureLinks)
+            foreach (var chapter in mangaModel.Chapters)
             {
-                string pictureId = Guid.NewGuid().ToString();
-                pictures.Add(new Picture
+                List<Picture> pictures = new List<Picture>();
+
+                foreach (var picture in chapter.Pictures)
                 {
-                    Id = pictureId,
-                    ImageLocation = picture.ImageLink,
+                    string pictureId = Guid.NewGuid().ToString();
+                    pictures.Add(new Picture
+                    {
+                        Id = pictureId,
+                        ImageLocation = picture.ImageLink,
+                        MangaId = mangaId,
+                        PictureOrder = picture.Order
+                    });
+                }
+
+
+                chapters.Add(new Chapter { 
+                    ChapterName = chapter.ChapterName,
+                    ChapterNumber = chapter.ChapterNumber,
+                    Id = Guid.NewGuid().ToString(),
                     MangaId = mangaId,
-                    PictureOrder = picture.Order
+                    Pictures = pictures
                 });
             }
 
+        
             Manga manga = new Manga
             {
                 Id = mangaId,
                 Description = mangaModel.Description,
                 MangaTitle = mangaModel.MangaTitle,
-                Pictures = pictures
+                Chapters = chapters
             };
 
             await _repo.SaveManga(manga);

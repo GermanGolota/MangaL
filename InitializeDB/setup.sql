@@ -10,7 +10,18 @@ CREATE TABLE Users(
 
 CREATE TABLE Mangas(
   Id varchar(45) NOT NULL PRIMARY KEY,
-  MangaTitle varchar(200)
+  MangaTitle varchar(200),
+  Desctiption varchar(1000)
+);
+
+CREATE TABLE Chapters(
+  Id varchar(45) NOT NULL PRIMARY KEY,
+  ChapterName varchar(150) NOT NULL,
+  ChapterNumber INT NOT NULL,
+  MangaId varchar(45) NOT NULL,
+  FOREIGN KEY (MangaId)
+    REFERENCES Mangas(Id)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE Comments(
@@ -29,17 +40,13 @@ CREATE TABLE Comments(
     ON DELETE CASCADE
 );
 
-CREATE TABLE PICTURES(
+CREATE TABLE Pictures(
   Id varchar(45) NOT NULL PRIMARY KEY,
-  MangaId varchar(45) NOT NULL,
   PictureOrder INT NOT NULL,
   /*Location relative to wwwroot*/
   ImageLocation varchar(200),
-  FOREIGN KEY (MangaId)
-    REFERENCES Mangas(Id)
-    /*On deletion of manga it should forget all of the pictueres in contained*/
+  ChapterId varchar(45),
+  FOREIGN KEY(ChapterId)
+    REFERENCES Chapters(ID)
     ON DELETE CASCADE
 );
-
-ALTER TABLE Mangas 
-ADD COLUMN Desctiption varchar(1000) AFTER MangaTitle;

@@ -49,27 +49,53 @@ namespace DataAccess.Repositories
         {
             await SaveMangaInfo(manga);
 
-            await SaveMangaPictures(manga);
+            await SaveMangaChapters(manga);
 
             //should not contain comments by that point
         }
+
         private async Task SaveMangaInfo(Manga manga)
         {
+            string sql = @"INSERT INTO Mangas(Id, Title, Description) VALUES(@Id, @Title, @Description)";
+
             var parameters = new
             {
                 Id = manga.Id,
                 Title = manga.MangaTitle,
                 Description = manga.Description
             };
-            string sql = @"INSERT INTO Mangas(Id, Title, Description) VALUES(@Id, @Title, @Description)";
 
             await _client.SaveData<dynamic>(sql, parameters, CancellationToken.None);
         }
-        private async Task SaveMangaPictures(Manga manga)
+        private async Task SaveMangaChapters(Manga manga)
         {
-            string mangaId = manga.Id;
+            foreach (var chapter in manga.Chapters)
+            {
+                await SaveChapterInfo(chapter);
+
+                await SaveChapterPictures(chapter);
+            }
+        }
+        private async Task SaveChapterInfo(Chapter chapter)
+        {
+
+            string sql = @"INSERT INTO Chapters(Id, ChapterName, ChapterNumber, MangaId)" +
+                            @"VALUES(@Id, @ChapterName, @ChapterNumber, @MangaId)";
+            var parameters = new
+            {
+                Id = chapter.Id,
+                ChapterName = chapter.ChapterName,
+                ChapterNumber = chapter.ChapterNumber,
+                MangaId = chapter.MangaId
+            };
+
+            await _client.SaveData<dynamic>(sql, parameters, CancellationToken.None);
+
+        }
+        private async Task SaveChapterPictures(Chapter chapter)
+        {
             List<Task> insertOperations = new List<Task>();
-            foreach (var picture in manga.Pictures)
+            foreach (var picture in chapter.Pictures)
             {
                 insertOperations.Add(
                     new Task(async () => await InsertPicture(picture))
