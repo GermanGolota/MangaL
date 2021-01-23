@@ -8,6 +8,7 @@ namespace Core.Entities
     {
         public string Id { get; set; }
         public string MangaTitle { get; set; }
+        public string Description { get; set; }
         public IEnumerable<Comment> Comments { get; set; }
         public IEnumerable<Picture> Pictures { get; set; }
     }

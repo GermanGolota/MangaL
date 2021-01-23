@@ -40,3 +40,6 @@ CREATE TABLE PICTURES(
     /*On deletion of manga it should forget all of the pictueres in contained*/
     ON DELETE CASCADE
 );
+
+ALTER TABLE Mangas 
+ADD COLUMN Desctiption varchar(1000) AFTER MangaTitle;
