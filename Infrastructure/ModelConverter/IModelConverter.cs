@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using DataAccess.DTOs;
 using Infrastructure.Models;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,6 @@ namespace Infrastructure.ModelConverter
         Manga ConvertMangaFromDTO(MangaModel dto);
         Task<User> ConvertUserFromDTOAsync(UserRegistrationModel dto);
         Chapter ConvertChapterFromDTO(ChapterModel dto, string mangaId);
+        MangaModel ConvertFromInfoModel(MangaInfoModel infoModel);
     }
 }

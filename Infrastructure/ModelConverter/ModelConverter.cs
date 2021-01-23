@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using DataAccess.DTOs;
 using Infrastructure.Hashing;
 using Infrastructure.Models;
 using System;
@@ -41,9 +42,9 @@ namespace Infrastructure.ModelConverter
             return new Picture
             {
                 Id = pictureId,
-                ImageLocation = picture.ImageLink,
+                ImageLocation = picture.ImageLocation,
                 MangaId = mangaId,
-                PictureOrder = picture.Order
+                PictureOrder = picture.PictureOrder
             };
         }
         public Manga ConvertMangaFromDTO(MangaModel mangaModel)
@@ -81,6 +82,31 @@ namespace Infrastructure.ModelConverter
             };
 
             return user;
+        }
+
+        public MangaModel ConvertFromInfoModel(MangaInfoModel infoModel)
+        {
+            List<ChapterModel> chapters = new List<ChapterModel>();
+
+            foreach (var chapter in infoModel.Chapters)
+            {
+                chapters.Add(ConvertChapterInfoModel(chapter));
+            }
+
+            return new MangaModel
+            {
+                Description = infoModel.Desription,
+                MangaTitle = infoModel.MangaTitle,
+                Chapters = chapters
+            };
+        }
+        private ChapterModel ConvertChapterInfoModel(ChapterInfoModel model)
+        {
+            return new ChapterModel
+            {
+                ChapterName = model.ChapterName,
+                ChapterNumber = model.ChapterNumber
+            };
         }
     }
 }
