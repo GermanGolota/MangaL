@@ -1,0 +1,8 @@
+db:
+  build: ./InitializeDB
+  environment:
+    MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  expose:
+    - "3306"
+  ports:
+    - "3306:3306"
