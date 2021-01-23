@@ -21,7 +21,7 @@ namespace Infrastructure.Services
         }
         public async Task SaveManga(MangaAdditionModel mangaModel)
         {
-           
+            Manga manga = _converter.ConvertMangaFromDTO(mangaModel);
 
             await _repo.SaveManga(manga);
         }

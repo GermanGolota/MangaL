@@ -61,7 +61,7 @@ namespace Infrastructure.ModelConverter
             return manga;
         }
 
-        public async Task<User> ConvertUserFromDTO(UserRegistrationModel userModel)
+        public async Task<User> ConvertUserFromDTOAsync(UserRegistrationModel userModel)
         {
             string userId = Guid.NewGuid().ToString();
 

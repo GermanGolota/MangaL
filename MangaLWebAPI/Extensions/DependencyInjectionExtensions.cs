@@ -1,6 +1,7 @@
 ﻿using DataAccess;
 using DataAccess.Repositories;
 using Infrastructure.Hashing;
+using Infrastructure.ModelConverter;
 using Infrastructure.Services;
 using MangaLWebAPI.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,8 @@ namespace MangaLWebAPI.Extensions
             services.AddScoped<IUserServices, UserServices>();
 
             services.AddScoped<IMangaServices, MangaServices>();
+
+            services.AddScoped<IModelConverter, ModelConverter>();
 
             return services;
         }
