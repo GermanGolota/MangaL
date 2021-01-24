@@ -1,9 +1,12 @@
 ﻿using Core.Entities;
 using DataAccess.DTOs;
 using DataAccess.Repositories;
+using FluentValidation;
 using Infrastructure.Models;
 using Infrastructure.Services;
+using MangaLWebAPI.Mediatr;
 using MangaLWebAPI.Models;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
@@ -21,72 +24,39 @@ namespace MangaLWebAPI.Controllers
     {
         private readonly IMangaWriteRepo _repo;
         private readonly IMangaReadRepo _readRepo;
+        private readonly IMediator _mediator;
 
-        public MangaAdditionController(IMangaWriteRepo repo, IMangaReadRepo readRepo)
+        public MangaAdditionController(IMangaWriteRepo repo, IMangaReadRepo readRepo, IMediator mediator)
         {
             this._repo = repo;
             this._readRepo = readRepo;
+            this._mediator = mediator;
         }
         [HttpPost]
         [Route("addImage")]
-        public async Task<IActionResult> UploadImageForManga(IFormFile file, [FromQuery]string chapterId,
+        public async Task<IActionResult> UploadImageForManga(IFormFile file, [FromQuery] string chapterId,
             [FromQuery] int order, CancellationToken token)
         {
-            if (isNotValidFile(file))
+            UploadImageCommand command = new UploadImageCommand(file, chapterId, order);
+            try
             {
-                return BadRequest();
+                string imageId = await _mediator.Send(command, token);
+
+                return Ok(imageId);
             }
-
-            var picture = new PictureAdditionModel
+            catch (TaskCanceledException)
             {
-                ChapterId = chapterId,
-                PictureOrder = order
-            };
-
-            string imageId = await _repo.SavePictureReturnId(picture, token);
-
-            string mangaId = await _readRepo.FindMangaIdForChapter(chapterId, token);
-
-            string path = GetFilePath(file, imageId, chapterId, mangaId);
-
-            using (FileStream fs = System.IO.File.Create(path))
-            {
-                file.CopyTo(fs);
-                fs.Flush();
+                return BadRequest("Canceled");
             }
-
-            await _repo.UpdatePictureLocation(imageId, path, token);
-
-            return Ok(imageId);
+            catch (ValidationException exc)
+            {
+                return BadRequest(exc.Message);
+            }
         }
-        private string GetFilePath(IFormFile file, string imageId, string chapterId, string mangaId)
-        {
-            string fileName = Path.GetFileName(file.FileName);
-            string fileExtension = Path.GetExtension(fileName);
 
-            var newFileName = String.Concat(imageId, fileExtension);
-
-            string rootFolder = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot");
-
-            string mangaFolder = Path.Combine(rootFolder, "Mangas", $"{mangaId}");
-
-            string chaptersFolder = Path.Combine(mangaFolder, "Chapters", $"{chapterId}");
-
-            string imageFolderPath = Path.Combine(chaptersFolder, "Images");
-
-            Directory.CreateDirectory(imageFolderPath);
-
-            string filePath = Path.Combine(imageFolderPath, $"{newFileName}");
-
-            return filePath;
-        }
-        private bool isNotValidFile(IFormFile file)
-        {
-            return file == null || file.Length == 0;
-        }
         [HttpPost]
         [Route("addChapterInfo")]
-        public async Task<IActionResult> UploadChapterInfo([FromBody] ChapterInfoUploadModel model, 
+        public async Task<IActionResult> UploadChapterInfo([FromBody] ChapterInfoUploadModel model,
             CancellationToken token)
         {
             ChapterAdditionModel info = new ChapterAdditionModel
@@ -102,7 +72,7 @@ namespace MangaLWebAPI.Controllers
         }
         [HttpPost]
         [Route("addMangaInfo")]
-        public async Task<IActionResult> UploadMangaInfo([FromBody] MangaInfoUploadModel model, 
+        public async Task<IActionResult> UploadMangaInfo([FromBody] MangaInfoUploadModel model,
             CancellationToken token)
         {
             MangaAdditionModel info = new MangaAdditionModel
