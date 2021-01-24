@@ -25,6 +25,7 @@ namespace MangaLWebAPI.Controllers
         {
             this._repo = repo;
         }
+        [HttpPost]
         [Route("addImage")]
         public async Task<IActionResult> UploadImageForManga([FromBody] MangaImageUploadModel model,
             CancellationToken token)
@@ -72,6 +73,7 @@ namespace MangaLWebAPI.Controllers
         {
             return file == null || file.Length == 0;
         }
+        [HttpPost]
         [Route("addChapterInfo")]
         public async Task<IActionResult> UploadChapterInfo([FromBody] ChapterInfoUploadModel model, 
             CancellationToken token)
@@ -87,6 +89,7 @@ namespace MangaLWebAPI.Controllers
 
             return Ok(id);
         }
+        [HttpPost]
         [Route("addMangaInfo")]
         public async Task<IActionResult> UploadMangaInfo([FromBody] MangaInfoUploadModel model, 
             CancellationToken token)
