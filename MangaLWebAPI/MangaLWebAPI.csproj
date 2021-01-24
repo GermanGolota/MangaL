@@ -4,9 +4,6 @@
     <UserSecretsId>11046140-76ed-49fc-aa7f-0b56a1f002a5</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="MySql.Data" Version="8.0.23" />
   </ItemGroup>
   <ItemGroup>
