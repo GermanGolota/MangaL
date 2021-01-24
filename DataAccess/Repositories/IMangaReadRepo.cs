@@ -10,7 +10,7 @@ namespace DataAccess.Repositories
 {
     public interface IMangaReadRepo
     {
-        Task<MangaAdditionModel> FindMangaInfoByIDAsync(string mangaId);
+        Task<MangaInfoModel> FindMangaInfoByIDAsync(string mangaId);
         Task<string> FindMangaIdForChapter(string chapterId, CancellationToken token);
     }
 }

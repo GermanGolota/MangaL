@@ -34,7 +34,7 @@ namespace DataAccess.Repositories
             return output;
         }
 
-        public async Task<MangaAdditionModel> FindMangaInfoByIDAsync(string mangaId)
+        public async Task<MangaInfoModel> FindMangaInfoByIDAsync(string mangaId)
         {
             string sql = @"SELECT MangaTitle, Description FROM Mangas WHERE Id=@MangaId";
 
@@ -43,17 +43,13 @@ namespace DataAccess.Repositories
                 MangaId = mangaId
             };
 
-            List<MangaAdditionModel> matches = await _client.LoadData<MangaAdditionModel, dynamic>
+            List<MangaInfoModel> matches = await _client.LoadData<MangaInfoModel, dynamic>
                 (sql, parameters, CancellationToken.None);
             if (matches.Count == 0)
             {
                 throw new Exception("Can't find that manga");
             }
             var output = matches.First();
-
-            List<ChapterAdditionModel> chapters =  await LoadChaptersInfoFor(mangaId);
-
-            output.Chapters = chapters;
 
             return output;
         }
