@@ -43,7 +43,7 @@ namespace Infrastructure.ModelConverter
             {
                 Id = pictureId,
                 ImageLocation = picture.ImageLocation,
-                MangaId = mangaId,
+                ChapterId = mangaId,
                 PictureOrder = picture.PictureOrder
             };
         }
