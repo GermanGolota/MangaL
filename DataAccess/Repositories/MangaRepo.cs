@@ -112,19 +112,19 @@ namespace DataAccess.Repositories
             foreach (var picture in chapter.Pictures)
             {
                 insertOperations.Add(
-                    new Task(async () => await InsertPicture(picture))
+                    new Task(async () => await SavePicture(picture))
                 );
             }
             await Task.WhenAll(insertOperations);
         }
-        private async Task InsertPicture(Picture picture)
+        public async Task SavePicture(Picture picture)
         {
-            string sql = @"INSERT INTO Pictures(Id, MangaId, PictureOrder, ImageLocation)" +
-                            @"VALUES(@Id, @MangaId, @PictureOrder, @ImageLocation)";
+            string sql = @"INSERT INTO Pictures(Id, ChapterId, PictureOrder, ImageLocation)" +
+                            @"VALUES(@Id, @ChapterId, @PictureOrder, @ImageLocation)";
             var parameters = new
             {
                 Id = picture.Id,
-                MangaId = picture.ChapterId,
+                ChapterId = picture.ChapterId,
                 PicturesOrder = picture.PictureOrder,
                 ImageLocation = picture.ImageLocation
             };
