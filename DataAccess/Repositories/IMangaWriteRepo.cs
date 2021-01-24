@@ -9,9 +9,9 @@ namespace DataAccess.Repositories
 {
     public interface IMangaWriteRepo
     {
-        Task<string> SaveMangaInfoReturnId(MangaInfoModel info, CancellationToken token);
-        Task<string> SaveChapterInfoReturnId(ChapterInfoModel info, CancellationToken token);
-        Task<string> SavePictureInfoReturnId(PictureInfoModel info, CancellationToken token);
+        Task<string> SaveMangaReturnId(MangaAdditionModel info, CancellationToken token);
+        Task<string> SaveChapterReturnId(ChapterAdditionModel info, CancellationToken token);
+        Task<string> SavePictureReturnId(PictureAdditionModel info, CancellationToken token);
         Task UpdatePictureLocation(string pictureId, string location, CancellationToken token);
     }
 }

@@ -4,10 +4,10 @@ using System.Text;
 
 namespace DataAccess.DTOs
 {
-    public class MangaInfoModel
+    public class MangaAdditionModel
     {
         public string MangaTitle { get; set; }
         public string Desription { get; set; }
-        public IEnumerable<ChapterInfoModel> Chapters { get; set; }
+        public IEnumerable<ChapterAdditionModel> Chapters { get; set; }
     }
 }

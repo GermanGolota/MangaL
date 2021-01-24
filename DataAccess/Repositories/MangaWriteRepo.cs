@@ -15,7 +15,7 @@ namespace DataAccess.Repositories
         {
             this._client = client;
         }
-        public async Task<string> SaveMangaInfoReturnId(MangaInfoModel info, CancellationToken token)
+        public async Task<string> SaveMangaReturnId(MangaAdditionModel info, CancellationToken token)
         {
             string id = CreateUniqueId();
             string sql = @"INSERT INTO Mangas(Id, MangaTitle, Description) VALUES(@Id, @Title, @Description)";
@@ -32,7 +32,7 @@ namespace DataAccess.Repositories
             return id;
         }
 
-        public async Task<string> SaveChapterInfoReturnId(ChapterInfoModel info, CancellationToken token)
+        public async Task<string> SaveChapterReturnId(ChapterAdditionModel info, CancellationToken token)
         {
             string id = CreateUniqueId();
             string sql = @"INSERT INTO Chapters(Id, ChapterName, ChapterNumber, MangaId)" +
@@ -50,7 +50,7 @@ namespace DataAccess.Repositories
             return id;
         }
 
-        public async Task<string> SavePictureInfoReturnId(PictureInfoModel info, CancellationToken token)
+        public async Task<string> SavePictureReturnId(PictureAdditionModel info, CancellationToken token)
         {
             string id = CreateUniqueId();
             string sql = @"INSERT INTO Pictures(Id, ChapterId, PictureOrder, ImageLocation)" +

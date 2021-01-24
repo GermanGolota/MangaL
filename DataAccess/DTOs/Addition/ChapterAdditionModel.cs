@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccess.DTOs
 {
-    public class ChapterInfoModel
+    public class ChapterAdditionModel
     {
         public string ChapterName { get; set; }
         public int ChapterNumber { get; set; }

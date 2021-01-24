@@ -34,7 +34,7 @@ namespace DataAccess.Repositories
             return output;
         }
 
-        public async Task<MangaInfoModel> FindMangaInfoByIDAsync(string mangaId)
+        public async Task<MangaAdditionModel> FindMangaInfoByIDAsync(string mangaId)
         {
             string sql = @"SELECT MangaTitle, Description FROM Mangas WHERE Id=@MangaId";
 
@@ -43,7 +43,7 @@ namespace DataAccess.Repositories
                 MangaId = mangaId
             };
 
-            List<MangaInfoModel> matches = await _client.LoadData<MangaInfoModel, dynamic>
+            List<MangaAdditionModel> matches = await _client.LoadData<MangaAdditionModel, dynamic>
                 (sql, parameters, CancellationToken.None);
             if (matches.Count == 0)
             {
@@ -51,13 +51,13 @@ namespace DataAccess.Repositories
             }
             var output = matches.First();
 
-            List<ChapterInfoModel> chapters =  await LoadChaptersInfoFor(mangaId);
+            List<ChapterAdditionModel> chapters =  await LoadChaptersInfoFor(mangaId);
 
             output.Chapters = chapters;
 
             return output;
         }
-        private async Task<List<ChapterInfoModel>> LoadChaptersInfoFor(string mangaId)
+        private async Task<List<ChapterAdditionModel>> LoadChaptersInfoFor(string mangaId)
         {
             string sql = @"SELECT ChapterName, ChapterNumber, Id FROM Chapters WHERE MangaId = @MangaId";
 
@@ -66,7 +66,7 @@ namespace DataAccess.Repositories
                 MangaId = mangaId
             };
 
-            return await _client.LoadData<ChapterInfoModel, dynamic>(sql, parameters, CancellationToken.None);
+            return await _client.LoadData<ChapterAdditionModel, dynamic>(sql, parameters, CancellationToken.None);
         }
     }
 }

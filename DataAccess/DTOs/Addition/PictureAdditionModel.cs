@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccess.DTOs
 {
-    public class PictureInfoModel
+    public class PictureAdditionModel
     {
         public string ChapterId { get; set; }
         public string PictureLocation { get; set; }

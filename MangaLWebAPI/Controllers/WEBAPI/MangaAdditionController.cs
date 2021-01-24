@@ -37,13 +37,13 @@ namespace MangaLWebAPI.Controllers
                 return BadRequest();
             }
 
-            var picture = new PictureInfoModel
+            var picture = new PictureAdditionModel
             {
                 ChapterId = chapterId,
                 PictureOrder = order
             };
 
-            string imageId = await _repo.SavePictureInfoReturnId(picture, token);
+            string imageId = await _repo.SavePictureReturnId(picture, token);
 
             string mangaId = await _readRepo.FindMangaIdForChapter(chapterId, token);
 
@@ -89,14 +89,14 @@ namespace MangaLWebAPI.Controllers
         public async Task<IActionResult> UploadChapterInfo([FromBody] ChapterInfoUploadModel model, 
             CancellationToken token)
         {
-            ChapterInfoModel info = new ChapterInfoModel
+            ChapterAdditionModel info = new ChapterAdditionModel
             {
                 ChapterName = model.ChapterName,
                 ChapterNumber = model.ChapterNumber,
                 MangaId = model.MangaId
             };
 
-            string id = await _repo.SaveChapterInfoReturnId(info, token);
+            string id = await _repo.SaveChapterReturnId(info, token);
 
             return Ok(id);
         }
@@ -105,13 +105,13 @@ namespace MangaLWebAPI.Controllers
         public async Task<IActionResult> UploadMangaInfo([FromBody] MangaInfoUploadModel model, 
             CancellationToken token)
         {
-            MangaInfoModel info = new MangaInfoModel
+            MangaAdditionModel info = new MangaAdditionModel
             {
                 Desription = model.MangaDescription,
                 MangaTitle = model.MangaTitle
             };
 
-            string id = await _repo.SaveMangaInfoReturnId(info, token);
+            string id = await _repo.SaveMangaReturnId(info, token);
 
             return Ok(id);
         }
