@@ -1,9 +1,12 @@
 ﻿using DataAccess;
 using DataAccess.Repositories;
+using FluentValidation;
 using Infrastructure.Hashing;
 using Infrastructure.ModelConverter;
 using Infrastructure.Services;
 using MangaLWebAPI.Configuration;
+using MangaLWebAPI.PipelineBehaviours;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -44,6 +47,13 @@ namespace MangaLWebAPI.Extensions
             services.AddSingleton<HashAlgorithm>(MD5.Create());
             services.AddSingleton<IHasher, Hasher>();
 
+            return services;
+        }
+
+        public static IServiceCollection AddValidators(this IServiceCollection services)
+        {
+            services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBahavior<,>));
             return services;
         }
     }

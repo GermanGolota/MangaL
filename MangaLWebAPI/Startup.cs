@@ -4,6 +4,7 @@ using Infrastructure.Hashing;
 using Infrastructure.Services;
 using MangaLWebAPI.Configuration;
 using MangaLWebAPI.Extensions;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -44,6 +45,10 @@ namespace MangaLWebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MangaLAPI", Version = "v1" });
             });
+
+            services.AddMediatR(typeof(Startup).Assembly);
+
+            services.AddValidators();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
