@@ -18,7 +18,7 @@ namespace DataAccess.Repositories
         public async Task<string> SaveMangaInfoReturnId(MangaInfoModel info, CancellationToken token)
         {
             string id = CreateUniqueId();
-            string sql = @"INSERT INTO Mangas(Id, Title, Description) VALUES(@Id, @Title, @Description)";
+            string sql = @"INSERT INTO Mangas(Id, MangaTitle, Description) VALUES(@Id, @Title, @Description)";
 
             var parameters = new
             {

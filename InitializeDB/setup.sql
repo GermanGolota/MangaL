@@ -50,3 +50,5 @@ CREATE TABLE Pictures(
     REFERENCES Chapters(ID)
     ON DELETE CASCADE
 );
+
+ALTER TABLE Mangas RENAME COLUMN old_col_name TO new_col_name;
