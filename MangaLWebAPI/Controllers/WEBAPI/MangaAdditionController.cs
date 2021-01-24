@@ -22,14 +22,10 @@ namespace MangaLWebAPI.Controllers
     [Route("api/manga/")]
     public class MangaAdditionController : ControllerBase
     {
-        private readonly IMangaWriteRepo _repo;
-        private readonly IMangaReadRepo _readRepo;
         private readonly IMediator _mediator;
 
-        public MangaAdditionController(IMangaWriteRepo repo, IMangaReadRepo readRepo, IMediator mediator)
+        public MangaAdditionController(IMediator mediator)
         {
-            this._repo = repo;
-            this._readRepo = readRepo;
             this._mediator = mediator;
         }
         [HttpPost]
@@ -56,34 +52,45 @@ namespace MangaLWebAPI.Controllers
 
         [HttpPost]
         [Route("addChapterInfo")]
-        public async Task<IActionResult> UploadChapterInfo([FromBody] ChapterInfoUploadModel model,
+        public async Task<IActionResult> UploadChapterInfo([FromBody] ChapterInfoUploadCommand command,
             CancellationToken token)
         {
-            ChapterAdditionModel info = new ChapterAdditionModel
+            //TODO: Add validation
+            try
             {
-                ChapterName = model.ChapterName,
-                ChapterNumber = model.ChapterNumber,
-                MangaId = model.MangaId
-            };
+                string chapterId = await _mediator.Send(command, token);
 
-            string id = await _repo.SaveChapterReturnId(info, token);
-
-            return Ok(id);
+                return Ok(chapterId);
+            }
+            catch (TaskCanceledException)
+            {
+                return BadRequest("Canceled");
+            }
+            catch (ValidationException exc)
+            {
+                return BadRequest(exc.Message);
+            }
         }
         [HttpPost]
         [Route("addMangaInfo")]
-        public async Task<IActionResult> UploadMangaInfo([FromBody] MangaInfoUploadModel model,
+        public async Task<IActionResult> UploadMangaInfo([FromBody] MangaInfoUploadCommand command,
             CancellationToken token)
         {
-            MangaAdditionModel info = new MangaAdditionModel
+            //TODO: Add validation
+            try
             {
-                Desription = model.MangaDescription,
-                MangaTitle = model.MangaTitle
-            };
+                string mangaId = await _mediator.Send(command, token);
 
-            string id = await _repo.SaveMangaReturnId(info, token);
-
-            return Ok(id);
+                return Ok(mangaId);
+            }
+            catch (TaskCanceledException)
+            {
+                return BadRequest("Canceled");
+            }
+            catch (ValidationException exc)
+            {
+                return BadRequest(exc.Message);
+            }
         }
     }
 }

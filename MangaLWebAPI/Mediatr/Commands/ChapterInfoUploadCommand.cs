@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 
-namespace MangaLWebAPI.Models
+namespace MangaLWebAPI.Mediatr
 {
-    public class ChapterInfoUploadModel
+    public class ChapterInfoUploadCommand : IRequest<string>
     {
         public string MangaId { get; set; }
         public string ChapterName { get; set; }

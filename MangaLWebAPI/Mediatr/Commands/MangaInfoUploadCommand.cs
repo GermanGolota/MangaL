@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 
-namespace MangaLWebAPI.Models
+namespace MangaLWebAPI.Mediatr
 {
-    public class MangaInfoUploadModel
+    public class MangaInfoUploadCommand:IRequest<string>
     {
         public string MangaTitle { get; set; }
         public string MangaDescription { get; set; }
