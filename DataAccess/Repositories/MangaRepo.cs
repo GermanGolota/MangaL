@@ -32,7 +32,6 @@ namespace DataAccess.Repositories
             if (matches.Count == 0)
             {
                 throw new Exception("Can't find that manga");
-                return null;
             }
             var output = matches.First();
 
@@ -125,7 +124,7 @@ namespace DataAccess.Repositories
             var parameters = new
             {
                 Id = picture.Id,
-                MangaId = picture.MangaId,
+                MangaId = picture.ChapterId,
                 PicturesOrder = picture.PictureOrder,
                 ImageLocation = picture.ImageLocation
             };
