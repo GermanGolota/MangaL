@@ -19,8 +19,6 @@ namespace MangaLWebAPI.Extensions
         {
             services.AddScoped<IUserServices, UserServices>();
 
-            services.AddScoped<IMangaServices, MangaServices>();
-
             services.AddScoped<IModelConverter, ModelConverter>();
 
             return services;
@@ -34,7 +32,9 @@ namespace MangaLWebAPI.Extensions
 
             services.AddScoped<IUserRepo, UserRepo>();
 
-            services.AddScoped<IMangaRepo, MangaRepo>();
+            services.AddScoped<IMangaReadRepo, MangaReadRepo>();
+
+            services.AddScoped<IMangaWriteRepo, MangaWriteRepo>();
 
             return services;
         }
