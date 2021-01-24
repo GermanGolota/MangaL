@@ -59,7 +59,7 @@ namespace DataAccess.Repositories
             {
                 Id = id,
                 ChapterId = info.ChapterId,
-                PicturesOrder = info.PictureOrder,
+                PictureOrder = info.PictureOrder,
                 ImageLocation = info.PictureLocation
             };
 
