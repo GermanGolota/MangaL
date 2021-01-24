@@ -18,6 +18,49 @@ namespace DataAccess.Repositories
             this._client = client;
         }
 
+        public async Task<MangaDisplayModel> FindMangaById(string mangaId)
+        {
+            var infoModel = await FindMangaInfoByIDAsync(mangaId);
+            MangaDisplayModel output = new MangaDisplayModel
+            {
+                Desription = infoModel.Description,
+                MangaTitle = infoModel.MangaName
+            };
+
+            List<ChapterInfoModel> chapters = await LoadChaptersInfoFor(mangaId);
+
+            output.Chapters = chapters;
+
+            List<CommentModel> comments = await LoadCommentsFor(mangaId);
+
+            output.Comments = comments;
+
+            return output;
+        }
+        private async Task<List<ChapterInfoModel>> LoadChaptersInfoFor(string mangaId)
+        {
+            string sql = @"SELECT ChapterName, ChapterNumber FROM Chapters WHERE MangaId = @MangaId";
+
+            var parameters = new
+            {
+                MangaId = mangaId
+            };
+
+            return await _client.LoadData<ChapterInfoModel, dynamic>(sql, parameters, CancellationToken.None);
+        }
+        private async Task<List<CommentModel>> LoadCommentsFor(string mangaId)
+        {
+            string sql = @"SELECT Comments.CommentMessage, Users.Username as CommentorUsername FROM Comments 
+                            LEFT JOIN Users On Comments.UserId = Users.Id
+                            WHERE Comments.MangaId=@MangaId;";
+
+            var parameters = new
+            {
+                MangaId = mangaId
+            };
+
+            return await _client.LoadData<CommentModel, dynamic>(sql, parameters, CancellationToken.None);
+        }
         public async Task<string> FindMangaIdForChapter(string chapterId, CancellationToken token)
         {
             string sql = @"SELECT MangaId FROM Chapters WHERE Id = @ChapterId";
@@ -53,16 +96,6 @@ namespace DataAccess.Repositories
 
             return output;
         }
-        private async Task<List<ChapterAdditionModel>> LoadChaptersInfoFor(string mangaId)
-        {
-            string sql = @"SELECT ChapterName, ChapterNumber, Id FROM Chapters WHERE MangaId = @MangaId";
-
-            var parameters = new
-            {
-                MangaId = mangaId
-            };
-
-            return await _client.LoadData<ChapterAdditionModel, dynamic>(sql, parameters, CancellationToken.None);
-        }
+        
     }
 }

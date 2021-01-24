@@ -8,6 +8,5 @@ namespace DataAccess.DTOs
     {
         public string MangaTitle { get; set; }
         public string Desription { get; set; }
-        public IEnumerable<ChapterAdditionModel> Chapters { get; set; }
     }
 }
