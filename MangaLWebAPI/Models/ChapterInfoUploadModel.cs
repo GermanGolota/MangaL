@@ -9,6 +9,6 @@ namespace MangaLWebAPI.Models
     {
         public string MangaId { get; set; }
         public string ChapterName { get; set; }
-        public string ChapterNumber { get; set; }
+        public int ChapterNumber { get; set; }
     }
 }

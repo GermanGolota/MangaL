@@ -53,7 +53,7 @@ namespace MangaLWebAPI.Controllers
 
             await _repo.UpdatePictureLocation(imageId, path, token);
 
-            return Ok();
+            return Ok(imageId);
         }
         private string GetFilePath(IFormFile file, string imageId)
         {
@@ -73,14 +73,33 @@ namespace MangaLWebAPI.Controllers
             return file == null || file.Length == 0;
         }
         [Route("addChapterInfo")]
-        public async Task<IActionResult> UploadChapterInfo([FromBody] ChapterInfoUploadModel model, CancellationToken token)
+        public async Task<IActionResult> UploadChapterInfo([FromBody] ChapterInfoUploadModel model, 
+            CancellationToken token)
         {
+            ChapterInfoModel info = new ChapterInfoModel
+            {
+                ChapterName = model.ChapterName,
+                ChapterNumber = model.ChapterNumber,
+                MangaId = model.MangaId
+            };
 
+            string id = await _repo.SaveChapterInfoReturnId(info, token);
+
+            return Ok(id);
         }
         [Route("addMangaInfo")]
-        public async Task<IActionResult> UploadMangaInfo([FromBody] ChapterInfoUploadModel model, CancellationToken token)
+        public async Task<IActionResult> UploadMangaInfo([FromBody] MangaInfoUploadModel model, 
+            CancellationToken token)
         {
+            MangaInfoModel info = new MangaInfoModel
+            {
+                Desription = model.MangaDescription,
+                MangaTitle = model.MangaTitle
+            };
 
+            string id = await _repo.SaveMangaInfoReturnId(info, token);
+
+            return Ok(id);
         }
     }
 }
