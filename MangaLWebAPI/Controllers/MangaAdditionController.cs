@@ -17,12 +17,10 @@ namespace MangaLWebAPI.Controllers
     public class MangaAdditionController : ControllerBase
     {
         private readonly IMangaRepo _repo;
-        private readonly IMangaServices _services;
 
-        public MangaAdditionController(IMangaRepo repo, IMangaServices services)
+        public MangaAdditionController(IMangaRepo repo)
         {
             this._repo = repo;
-            this._services = services;
         }
         [Route("addImage")]
         public async Task<IActionResult> UploadImageForManga([FromBody] MangaImageUploadModel model)

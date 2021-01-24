@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>11046140-76ed-49fc-aa7f-0b56a1f002a5</UserSecretsId>
@@ -8,5 +8,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>
