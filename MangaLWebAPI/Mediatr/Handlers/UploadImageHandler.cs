@@ -26,10 +26,6 @@ namespace MangaLWebAPI.Mediatr
             var file = request.File;
             string chapterId = request.ChapterId;
 
-            if (isNotValidFile(file))
-            {
-            }
-
             var picture = new PictureAdditionModel
             {
                 ChapterId = chapterId,
@@ -72,10 +68,6 @@ namespace MangaLWebAPI.Mediatr
             string filePath = Path.Combine(imageFolderPath, $"{newFileName}");
 
             return filePath;
-        }
-        private bool isNotValidFile(IFormFile file)
-        {
-            return file == null || file.Length == 0;
         }
     }
 }
