@@ -52,7 +52,7 @@ namespace MangaLWebAPI.Controllers
 
         [HttpPost]
         [Route("addChapterInfo")]
-        public async Task<IActionResult> UploadChapterInfo([FromBody] ChapterInfoUploadCommand command,
+        public async Task<IActionResult> UploadChapterInfo([FromBody] ChapterUploadCommand command,
             CancellationToken token)
         {
             //TODO: Add validation
@@ -73,7 +73,7 @@ namespace MangaLWebAPI.Controllers
         }
         [HttpPost]
         [Route("addMangaInfo")]
-        public async Task<IActionResult> UploadMangaInfo([FromBody] MangaInfoUploadCommand command,
+        public async Task<IActionResult> UploadMangaInfo([FromBody] MangaUploadCommand command,
             CancellationToken token)
         {
             //TODO: Add validation

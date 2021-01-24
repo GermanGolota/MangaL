@@ -10,7 +10,7 @@ using MediatR;
 
 namespace MangaLWebAPI.Mediatr.Handlers
 {
-    public class MangaUploadHandler : IRequestHandler<MangaInfoUploadCommand, string>
+    public class MangaUploadHandler : IRequestHandler<MangaUploadCommand, string>
     {
         private readonly IMangaWriteRepo _repo;
 
@@ -18,7 +18,7 @@ namespace MangaLWebAPI.Mediatr.Handlers
         {
             this._repo = repo;
         }
-        public async Task<string> Handle(MangaInfoUploadCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(MangaUploadCommand request, CancellationToken cancellationToken)
         {
             MangaAdditionModel info = new MangaAdditionModel
             {

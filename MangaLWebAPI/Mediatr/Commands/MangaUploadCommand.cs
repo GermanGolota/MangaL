@@ -7,7 +7,7 @@ using MediatR;
 
 namespace MangaLWebAPI.Mediatr
 {
-    public class MangaInfoUploadCommand:IRequest<string>
+    public class MangaUploadCommand:IRequest<string>
     {
         public string MangaTitle { get; set; }
         public string MangaDescription { get; set; }
