@@ -9,7 +9,6 @@ namespace MangaLWebAPI.Models
     public class MangaImageUploadModel
     {
         public string ChapterId { get; set; }
-        public IFormFile Picture { get; set; }
         public int Order { get; set; }
     }
 }

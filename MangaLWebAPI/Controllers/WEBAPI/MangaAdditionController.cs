@@ -20,17 +20,18 @@ namespace MangaLWebAPI.Controllers
     public class MangaAdditionController : ControllerBase
     {
         private readonly IMangaWriteRepo _repo;
+        private readonly IMangaReadRepo _readRepo;
 
-        public MangaAdditionController(IMangaWriteRepo repo)
+        public MangaAdditionController(IMangaWriteRepo repo, IMangaReadRepo readRepo)
         {
             this._repo = repo;
+            this._readRepo = readRepo;
         }
         [HttpPost]
         [Route("addImage")]
-        public async Task<IActionResult> UploadImageForManga([FromBody] MangaImageUploadModel model,
-            CancellationToken token)
+        public async Task<IActionResult> UploadImageForManga(IFormFile file, [FromQuery]string chapterId,
+            [FromQuery] int order, CancellationToken token)
         {
-            IFormFile file = model.Picture;
             if (isNotValidFile(file))
             {
                 return BadRequest();
@@ -38,13 +39,15 @@ namespace MangaLWebAPI.Controllers
 
             var picture = new PictureInfoModel
             {
-                ChapterId = model.ChapterId,
-                PictureOrder = model.Order
+                ChapterId = chapterId,
+                PictureOrder = order
             };
 
-            var imageId = await _repo.SavePictureInfoReturnId(picture, token);
+            string imageId = await _repo.SavePictureInfoReturnId(picture, token);
 
-            string path = GetFilePath(file, imageId);
+            string mangaId = await _readRepo.FindMangaIdForChapter(chapterId, token);
+
+            string path = GetFilePath(file, imageId, chapterId, mangaId);
 
             using (FileStream fs = System.IO.File.Create(path))
             {
@@ -56,16 +59,24 @@ namespace MangaLWebAPI.Controllers
 
             return Ok(imageId);
         }
-        private string GetFilePath(IFormFile file, string imageId)
+        private string GetFilePath(IFormFile file, string imageId, string chapterId, string mangaId)
         {
             string fileName = Path.GetFileName(file.FileName);
             string fileExtension = Path.GetExtension(fileName);
 
             var newFileName = String.Concat(imageId, fileExtension);
 
-            var filePath = new PhysicalFileProvider(
-                Path.Combine(Directory.GetCurrentDirectory(),
-                "wwwroot", "Images")).Root + $@"\{newFileName}";
+            string rootFolder = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot");
+
+            string mangaFolder = Path.Combine(rootFolder, "Mangas", $"{mangaId}");
+
+            string chaptersFolder = Path.Combine(mangaFolder, "Chapters", $"{chapterId}");
+
+            string imageFolderPath = Path.Combine(chaptersFolder, "Images");
+
+            Directory.CreateDirectory(imageFolderPath);
+
+            string filePath = Path.Combine(imageFolderPath, $"{newFileName}");
 
             return filePath;
         }
