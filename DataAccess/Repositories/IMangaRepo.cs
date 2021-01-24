@@ -10,8 +10,5 @@ namespace DataAccess.Repositories
     public interface IMangaRepo
     {
         Task<MangaInfoModel> FindMangaInfoByIDAsync(string mangaId);
-        Task SaveManga(Manga manga);
-        Task SaveChapter(Chapter chapter);
-        Task SavePicture(Picture picture);
     }
 }
