@@ -9,11 +9,11 @@ using MediatR;
 
 namespace MangaLWebAPI.Mediatr.Handlers
 {
-    public class ChapterInfoUploadHandler : IRequestHandler<ChapterInfoUploadCommand, string>
+    public class ChapterUploadHandler : IRequestHandler<ChapterInfoUploadCommand, string>
     {
         private readonly IMangaWriteRepo _repo;
 
-        public ChapterInfoUploadHandler(IMangaWriteRepo repo)
+        public ChapterUploadHandler(IMangaWriteRepo repo)
         {
             this._repo = repo;
         }

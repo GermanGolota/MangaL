@@ -11,17 +11,17 @@ using Microsoft.AspNetCore.Http;
 
 namespace MangaLWebAPI.Mediatr
 {
-    public class UploadImageHandler : IRequestHandler<UploadImageCommand, string>
+    public class ImageUploadHandler : IRequestHandler<ImageUploadCommand, string>
     {
         private readonly IMangaWriteRepo _repo;
         private readonly IMangaReadRepo _readRepo;
 
-        public UploadImageHandler(IMangaWriteRepo repo, IMangaReadRepo readRepo)
+        public ImageUploadHandler(IMangaWriteRepo repo, IMangaReadRepo readRepo)
         {
             this._repo = repo;
             this._readRepo = readRepo;
         }
-        public async Task<string> Handle(UploadImageCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(ImageUploadCommand request, CancellationToken cancellationToken)
         {
             var file = request.File;
             string chapterId = request.ChapterId;

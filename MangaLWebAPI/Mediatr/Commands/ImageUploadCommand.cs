@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MangaLWebAPI.Mediatr
 {
-    public class UploadImageCommand:IRequest<string>
+    public class ImageUploadCommand:IRequest<string>
     {
         public string ChapterId { get; set; }
         public int Order { get; set; }
         public IFormFile File { get; set; }
-        public UploadImageCommand(IFormFile file, string chapterId, int order)
+        public ImageUploadCommand(IFormFile file, string chapterId, int order)
         {
             File = file;
             ChapterId = chapterId;

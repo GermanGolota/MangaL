@@ -33,7 +33,7 @@ namespace MangaLWebAPI.Controllers
         public async Task<IActionResult> UploadImageForManga(IFormFile file, [FromQuery] string chapterId,
             [FromQuery] int order, CancellationToken token)
         {
-            UploadImageCommand command = new UploadImageCommand(file, chapterId, order);
+            ImageUploadCommand command = new ImageUploadCommand(file, chapterId, order);
             try
             {
                 string imageId = await _mediator.Send(command, token);

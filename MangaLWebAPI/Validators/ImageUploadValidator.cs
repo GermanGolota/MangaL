@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace MangaLWebAPI.Validators
 {
-    public class UploadImageValidator : AbstractValidator<UploadImageCommand>
+    public class ImageUploadValidator : AbstractValidator<ImageUploadCommand>
     {
-        public UploadImageValidator()
+        public ImageUploadValidator()
         {
             RuleFor(command => command.File)
                 .NotNull().WithMessage("Please provide a file")

@@ -10,11 +10,11 @@ using MediatR;
 
 namespace MangaLWebAPI.Mediatr.Handlers
 {
-    public class MangaImageUploadHandler : IRequestHandler<MangaInfoUploadCommand, string>
+    public class MangaUploadHandler : IRequestHandler<MangaInfoUploadCommand, string>
     {
         private readonly IMangaWriteRepo _repo;
 
-        public MangaImageUploadHandler(IMangaWriteRepo repo)
+        public MangaUploadHandler(IMangaWriteRepo repo)
         {
             this._repo = repo;
         }
