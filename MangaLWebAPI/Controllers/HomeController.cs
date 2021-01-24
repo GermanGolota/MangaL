@@ -12,6 +12,7 @@ namespace MangaLWebAPI.Controllers
     {
         public IActionResult Index()
         {
+            //show welcome page
             return View();
         }
         public IActionResult Error()
