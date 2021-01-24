@@ -1,14 +1,17 @@
 ﻿using Core.Entities;
+using DataAccess.DTOs;
 using DataAccess.Repositories;
 using Infrastructure.Models;
 using Infrastructure.Services;
 using MangaLWebAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MangaLWebAPI.Controllers
@@ -16,64 +19,68 @@ namespace MangaLWebAPI.Controllers
     [Route("api/manga/")]
     public class MangaAdditionController : ControllerBase
     {
-        private readonly IMangaRepo _repo;
+        private readonly IMangaWriteRepo _repo;
 
-        public MangaAdditionController(IMangaRepo repo)
+        public MangaAdditionController(IMangaWriteRepo repo)
         {
             this._repo = repo;
         }
         [Route("addImage")]
-        public async Task<IActionResult> UploadImageForManga([FromBody] MangaImageUploadModel model)
+        public async Task<IActionResult> UploadImageForManga([FromBody] MangaImageUploadModel model,
+            CancellationToken token)
         {
-            var file = model.Picture;
-
-            var imageId = Guid.NewGuid().ToString();
-
+            IFormFile file = model.Picture;
             if (isNotValidFile(file))
             {
                 return BadRequest();
             }
 
-            string fileName = Path.GetFileName(file.FileName);
-            string fileExtension = Path.GetExtension(fileName);
+            var picture = new PictureInfoModel
+            {
+                ChapterId = model.ChapterId,
+                PictureOrder = model.Order
+            };
 
-            var newFileName = String.Concat(imageId, fileExtension);
+            var imageId = await _repo.SavePictureInfoReturnId(picture, token);
 
-            var filepath = new PhysicalFileProvider(
-                Path.Combine(Directory.GetCurrentDirectory(),
-                "wwwroot", "Images")).Root + $@"\{newFileName}";
+            string path = GetFilePath(file, imageId);
 
-            using (FileStream fs = System.IO.File.Create(filepath))
+            using (FileStream fs = System.IO.File.Create(path))
             {
                 file.CopyTo(fs);
                 fs.Flush();
             }
 
-            var picture = new Picture
-            {
-                ChapterId = model.ChapterId,
-                Id = imageId,
-                PictureOrder = model.Order,
-                ImageLocation = filepath
-            };
-
-            await _repo.SavePicture(picture);
+            await _repo.UpdatePictureLocation(imageId, path, token);
 
             return Ok();
         }
+        private string GetFilePath(IFormFile file, string imageId)
+        {
+            string fileName = Path.GetFileName(file.FileName);
+            string fileExtension = Path.GetExtension(fileName);
+
+            var newFileName = String.Concat(imageId, fileExtension);
+
+            var filePath = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(),
+                "wwwroot", "Images")).Root + $@"\{newFileName}";
+
+            return filePath;
+        }
+        private bool isNotValidFile(IFormFile file)
+        {
+            return file == null || file.Length == 0;
+        }
         [Route("addChapterInfo")]
-        public async Task<IActionResult> UploadChapterInfo([FromBody] ChapterInfoUploadModel model)
+        public async Task<IActionResult> UploadChapterInfo([FromBody] ChapterInfoUploadModel model, CancellationToken token)
         {
 
         }
         [Route("addMangaInfo")]
-        public async Task<IActionResult> UploadMangaInfo([FromBody] ChapterInfoUploadModel model)
+        public async Task<IActionResult> UploadMangaInfo([FromBody] ChapterInfoUploadModel model, CancellationToken token)
         {
 
-        }
-        private bool isNotValidFile(Microsoft.AspNetCore.Http.IFormFile file)
-        {
-            return file == null || file.Length == 0;
         }
     }
 }
