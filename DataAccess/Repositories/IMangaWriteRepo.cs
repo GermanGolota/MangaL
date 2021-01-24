@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
-    public interface IMangaInfoRepo
+    public interface IMangaWriteRepo
     {
         Task<string> SaveMangaInfoReturnId(MangaInfoModel info, CancellationToken token);
         Task<string> SaveChapterInfoReturnId(ChapterInfoModel info, CancellationToken token);

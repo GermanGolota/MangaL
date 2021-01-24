@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
-    public interface IMangaRepo
+    public interface IMangaReadRepo
     {
         Task<MangaInfoModel> FindMangaInfoByIDAsync(string mangaId);
     }

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
-    public class MangaInfoRepo : IMangaInfoRepo
+    public class MangaWriteRepo : IMangaWriteRepo
     {
         private readonly ISQLClient _client;
 
-        public MangaInfoRepo(ISQLClient client)
+        public MangaWriteRepo(ISQLClient client)
         {
             this._client = client;
         }
