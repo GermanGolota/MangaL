@@ -18,7 +18,7 @@ namespace MangaLWebAPI.Validators
         }
         public bool ContainContent(IFormFile file)
         {
-            return file.Length > 0;
+            return file is not null && file.Length > 0;
         }
     }
 }
