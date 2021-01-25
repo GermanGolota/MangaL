@@ -20,6 +20,7 @@ namespace MangaLWebAPI.Controllers
         {
             this._mediator = mediator;
         }
+        [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<MangaDisplayModel>> GetManga([FromRoute]string id)
         {

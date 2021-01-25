@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace MangaLWebAPI.Controllers
 {
+    [ApiController]
     [Route("api/chapter")]
     public class ChapterController : ControllerBase
     {
@@ -25,7 +26,7 @@ namespace MangaLWebAPI.Controllers
          ([FromRoute] string chapterId, CancellationToken token)
         {
             var command = new ChapterImageIdsQuerry(chapterId);
-            var responce = _mediator.Send(command, token);
+            var responce = await _mediator.Send(command, token);
 
             return Ok(responce);
         }
