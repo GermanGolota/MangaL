@@ -9,5 +9,7 @@ namespace DataAccess.Repositories
     public interface IChapterRepo
     {
         Task<List<string>> GetImageIdsFor(string chapterId, CancellationToken token);
+
+        Task<string> FindMangaIdForChapter(string chapterId, CancellationToken token);
     }
 }

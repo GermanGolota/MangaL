@@ -61,21 +61,7 @@ namespace DataAccess.Repositories
 
             return await _client.LoadData<CommentModel, dynamic>(sql, parameters, token);
         }
-        public async Task<string> FindMangaIdForChapter(string chapterId, CancellationToken token)
-        {
-            string sql = @"SELECT MangaId FROM Chapters WHERE Id = @ChapterId";
-
-            var parameters = new
-            {
-                ChapterId = chapterId
-            };
-
-            var result = await _client.LoadData<string, dynamic>(sql, parameters, token);
-            //There can be two chapters with the same id, because id is a guid
-            string output = result.FirstOrDefault();
-
-            return output;
-        }
+       
 
         public async Task<MangaInfoModel> FindMangaInfoByIDAsync(string mangaId, CancellationToken token)
         {

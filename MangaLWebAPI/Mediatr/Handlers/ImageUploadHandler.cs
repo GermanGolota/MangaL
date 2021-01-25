@@ -15,13 +15,13 @@ namespace MangaLWebAPI.Mediatr
     public class ImageUploadHandler : IRequestHandler<ImageUploadCommand, string>
     {
         private readonly IMangaWriteRepo _repo;
-        private readonly IMangaReadRepo _readRepo;
+        private readonly IChapterRepo _chapterRepo;
         private readonly AppConfiguration _config;
 
-        public ImageUploadHandler(IMangaWriteRepo repo, IMangaReadRepo readRepo, AppConfiguration config)
+        public ImageUploadHandler(IMangaWriteRepo repo, IChapterRepo readRepo, AppConfiguration config)
         {
             this._repo = repo;
-            this._readRepo = readRepo;
+            this._chapterRepo = readRepo;
             this._config = config;
         }
         public async Task<string> Handle(ImageUploadCommand request, CancellationToken cancellationToken)
@@ -37,7 +37,7 @@ namespace MangaLWebAPI.Mediatr
 
             string imageId = await _repo.SavePictureReturnId(picture, cancellationToken);
 
-            string mangaId = await _readRepo.FindMangaIdForChapter(chapterId, cancellationToken);
+            string mangaId = await _chapterRepo.FindMangaIdForChapter(chapterId, cancellationToken);
 
             string path = GetFilePath(file, imageId, chapterId, mangaId);
 
