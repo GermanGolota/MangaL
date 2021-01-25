@@ -51,4 +51,8 @@ CREATE TABLE Pictures(
     ON DELETE CASCADE
 );
 
-ALTER TABLE Mangas RENAME COLUMN old_col_name TO new_col_name;
+ALTER TABLE Mangas RENAME COLUMN Desctiption TO Description;
+
+ALTER TABLE Pictures
+ADD CONSTRAINT OrderInChapterIsUnique UNIQUE(PictureOrder, ChapterId);
+
