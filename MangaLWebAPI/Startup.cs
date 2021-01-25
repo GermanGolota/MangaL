@@ -31,7 +31,7 @@ namespace MangaLWebAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllers();
 
             services.AddSingleton<AppConfiguration>();
 
@@ -63,8 +63,6 @@ namespace MangaLWebAPI
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -76,9 +74,7 @@ namespace MangaLWebAPI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,6 +29,10 @@ namespace MangaLWebAPI.Configuration
 
             return connString;
         }
-
+        public string GetContentRootPath()
+        {
+            return _config["ContentRootPath"] ??
+                Path.Combine(Directory.GetCurrentDirectory(), "temp"); ;
+        }
     }
 }

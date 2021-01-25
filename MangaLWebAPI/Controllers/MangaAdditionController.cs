@@ -5,7 +5,6 @@ using FluentValidation;
 using Infrastructure.Models;
 using Infrastructure.Services;
 using MangaLWebAPI.Mediatr;
-using MangaLWebAPI.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

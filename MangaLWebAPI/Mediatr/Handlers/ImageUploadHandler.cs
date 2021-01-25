@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DataAccess.DTOs;
 using DataAccess.Repositories;
+using MangaLWebAPI.Configuration;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
@@ -15,11 +16,13 @@ namespace MangaLWebAPI.Mediatr
     {
         private readonly IMangaWriteRepo _repo;
         private readonly IMangaReadRepo _readRepo;
+        private readonly AppConfiguration _config;
 
-        public ImageUploadHandler(IMangaWriteRepo repo, IMangaReadRepo readRepo)
+        public ImageUploadHandler(IMangaWriteRepo repo, IMangaReadRepo readRepo, AppConfiguration config)
         {
             this._repo = repo;
             this._readRepo = readRepo;
+            this._config = config;
         }
         public async Task<string> Handle(ImageUploadCommand request, CancellationToken cancellationToken)
         {
@@ -55,7 +58,7 @@ namespace MangaLWebAPI.Mediatr
 
             var newFileName = String.Concat(imageId, fileExtension);
 
-            string rootFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            string rootFolder = _config.GetContentRootPath(); 
 
             string mangaFolder = Path.Combine(rootFolder, "Mangas", $"{mangaId}");
 
