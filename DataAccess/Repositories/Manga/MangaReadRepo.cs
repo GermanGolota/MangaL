@@ -24,7 +24,7 @@ namespace DataAccess.Repositories
             MangaDisplayModel output = new MangaDisplayModel
             {
                 Desription = infoModel.Description,
-                MangaTitle = infoModel.MangaName
+                MangaTitle = infoModel.MangaTitle
             };
 
             List<ChapterInfoModel> chapters = await LoadChaptersInfoFor(mangaId, token);
