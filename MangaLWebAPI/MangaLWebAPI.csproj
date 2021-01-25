@@ -16,7 +16,6 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mediatr\Queries\" />
     <Folder Include="SeededData\" />
   </ItemGroup>
 </Project>
