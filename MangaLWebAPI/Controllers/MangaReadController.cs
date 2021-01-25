@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace MangaLWebAPI.Controllers
 {
+    [ApiController]
     [Route("api/manga/")]
     public class MangaReadController: ControllerBase
     {
