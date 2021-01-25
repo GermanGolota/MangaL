@@ -8,5 +8,6 @@ namespace DataAccess.DTOs
     {
         public string ChapterName { get; set; }
         public int ChapterNumber { get; set; }
+        public string ChapterId { get; set; }
     }
 }

@@ -39,7 +39,7 @@ namespace DataAccess.Repositories
         }
         private async Task<List<ChapterInfoModel>> LoadChaptersInfoFor(string mangaId, CancellationToken token)
         {
-            string sql = @"SELECT ChapterName, ChapterNumber FROM Chapters WHERE MangaId = @MangaId";
+            string sql = @"SELECT ChapterName, ChapterNumber, Id as ChapterId FROM Chapters WHERE MangaId = @MangaId";
 
             var parameters = new
             {
