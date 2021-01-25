@@ -39,6 +39,10 @@ namespace MangaLWebAPI.Extensions
 
             services.AddScoped<IMangaWriteRepo, MangaWriteRepo>();
 
+            services.AddScoped<IChapterRepo, ChapterRepo>();
+
+            services.AddScoped<IImageRepo, ImageRepo>();
+
             return services;
         }
         public static IServiceCollection AddHashing(this IServiceCollection services)
