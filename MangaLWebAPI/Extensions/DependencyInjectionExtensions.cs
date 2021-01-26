@@ -1,10 +1,9 @@
 ﻿using DataAccess;
 using DataAccess.Repositories;
 using FluentValidation;
+using Infrastructure.Commands;
 using Infrastructure.Configuration;
 using Infrastructure.Hashing;
-using Infrastructure.ModelConverter;
-using Infrastructure.Services;
 using MangaLWebAPI.PipelineBehaviours;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,9 +19,7 @@ namespace MangaLWebAPI.Extensions
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
-            services.AddScoped<IUserServices, UserServices>();
-
-            services.AddScoped<IModelConverter, ModelConverter>();
+            services.AddMediatR(typeof(ChapterUploadCommand).Assembly);
 
             return services;
         }

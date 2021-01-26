@@ -37,8 +37,6 @@ namespace MangaLWebAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MangaLAPI", Version = "v1" });
             });
 
-            services.AddMediatR(typeof(ChapterUploadCommand).Assembly);
-
             services.AddValidators();
         }
 

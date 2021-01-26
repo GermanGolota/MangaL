@@ -1,6 +1,5 @@
-﻿using Infrastructure.Commands;
-using Infrastructure.Models;
-using Infrastructure.Services;
+﻿using DataAccess.DTOs;
+using Infrastructure.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +21,7 @@ namespace MangaLWebAPI
             {
                 var provider = scope.ServiceProvider;
 
-                var userService = provider.GetRequiredService<IUserServices>();
+                var mediator = provider.GetRequiredService<IMediator>();
 
                 string userFilePath = Path.Combine(GetSeeededDataDirectory(), "Users.json");
 
@@ -35,7 +34,8 @@ namespace MangaLWebAPI
                             JsonConvert.DeserializeObject<List<UserRegistrationModel>>(content);
                         foreach (var user in users)
                         {
-                            await userService.RegisterUser(user);
+                            var command = new RegisterUserCommand(user.Username, user.Password);
+                            await mediator.Send(command);
                         }
                     }
                 }

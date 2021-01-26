@@ -3,8 +3,6 @@ using DataAccess.DTOs;
 using DataAccess.Repositories;
 using FluentValidation;
 using Infrastructure.Commands;
-using Infrastructure.Models;
-using Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

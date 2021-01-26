@@ -1,5 +1,6 @@
 ﻿using Core;
 using Core.Entities;
+using DataAccess.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,7 +19,6 @@ namespace DataAccess.Repositories
         }
         public async Task SaveUserAsync(User user)
         {
-            //Names of the properties coincide, so there is no need to create parameter object
             string sql= @"INSERT INTO Users(Id, Username, PasswordHash)
                 VALUES(@Id, @Username, @PasswordHash)";
             await _client.SaveData<User>(sql, user, CancellationToken.None);

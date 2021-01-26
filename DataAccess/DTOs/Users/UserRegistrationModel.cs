@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Models
+﻿namespace DataAccess.DTOs
 {
     public class UserRegistrationModel
     {
