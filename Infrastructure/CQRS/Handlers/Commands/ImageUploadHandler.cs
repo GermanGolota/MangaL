@@ -17,19 +17,15 @@ namespace Infrastructure.Handlers
     public class ImageUploadHandler : IRequestHandler<ImageUploadCommand, string>
     {
         private readonly IMangaWriteRepo _mangaRepo;
-        private readonly IChapterRepo _chapterRepo;
         private readonly IImageRepo _imageRepo;
         private readonly IFileHandler _fileHandler;
-        private readonly AppConfiguration _config;
 
-        public ImageUploadHandler(IMangaWriteRepo repo, IChapterRepo readRepo, IImageRepo imageRepo, 
-            IFileHandler fileHandler, AppConfiguration config)
+        public ImageUploadHandler(IMangaWriteRepo repo,  IImageRepo imageRepo, 
+            IFileHandler fileHandler)
         {
             this._mangaRepo = repo;
-            this._chapterRepo = readRepo;
             this._imageRepo = imageRepo;
             this._fileHandler = fileHandler;
-            this._config = config;
         }
         public async Task<string> Handle(ImageUploadCommand request, CancellationToken cancellationToken)
         {
@@ -44,9 +40,9 @@ namespace Infrastructure.Handlers
 
             string imageId = await _mangaRepo.SavePictureReturnId(picture, cancellationToken);
 
-            string mangaId = await _chapterRepo.FindMangaIdForChapter(chapterId, cancellationToken);
+            string fileName = Path.GetFileName(file.FileName);
 
-            string path = GetFilePath(file, imageId, chapterId, mangaId);
+            string path = await _fileHandler.CreateImagePath(fileName, chapterId, imageId);
 
             _fileHandler.SaveFileToLocation(file, path);
 
@@ -61,28 +57,6 @@ namespace Infrastructure.Handlers
         {
             path = path.Replace("wwwroot", "");
             return path.Substring(1);
-        }
-
-        private string GetFilePath(IFormFile file, string imageId, string chapterId, string mangaId)
-        {
-            string fileName = Path.GetFileName(file.FileName);
-            string fileExtension = Path.GetExtension(fileName);
-
-            var newFileName = String.Concat(imageId, fileExtension);
-
-            string rootFolder = _config.GetContentRootPath(); 
-
-            string mangaFolder = Path.Combine(rootFolder, "Mangas", $"{mangaId}");
-
-            string chaptersFolder = Path.Combine(mangaFolder, "Chapters", $"{chapterId}");
-
-            string imageFolderPath = Path.Combine(chaptersFolder, "Images");
-
-            Directory.CreateDirectory(imageFolderPath);
-
-            string filePath = Path.Combine(imageFolderPath, $"{newFileName}");
-
-            return filePath;
         }
     }
 }
