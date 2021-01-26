@@ -33,5 +33,9 @@ namespace Infrastructure.Configuration
         {
             return "wwwroot";
         }
+        public string GetAPIUrl()
+        {
+            return _config["APIUri"]??"https://localhost:5001/";
+        }
     }
 }
