@@ -8,6 +8,7 @@ using DataAccess.DTOs;
 using DataAccess.Repositories;
 using Infrastructure.Commands;
 using Infrastructure.Configuration;
+using Infrastructure.FileHandler;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
@@ -18,13 +19,16 @@ namespace Infrastructure.Handlers
         private readonly IMangaWriteRepo _mangaRepo;
         private readonly IChapterRepo _chapterRepo;
         private readonly IImageRepo _imageRepo;
+        private readonly IFileHandler _fileHandler;
         private readonly AppConfiguration _config;
 
-        public ImageUploadHandler(IMangaWriteRepo repo, IChapterRepo readRepo, IImageRepo imageRepo,AppConfiguration config)
+        public ImageUploadHandler(IMangaWriteRepo repo, IChapterRepo readRepo, IImageRepo imageRepo, 
+            IFileHandler fileHandler, AppConfiguration config)
         {
             this._mangaRepo = repo;
             this._chapterRepo = readRepo;
             this._imageRepo = imageRepo;
+            this._fileHandler = fileHandler;
             this._config = config;
         }
         public async Task<string> Handle(ImageUploadCommand request, CancellationToken cancellationToken)
@@ -44,11 +48,7 @@ namespace Infrastructure.Handlers
 
             string path = GetFilePath(file, imageId, chapterId, mangaId);
 
-            using (FileStream fs = System.IO.File.Create(path))
-            {
-                file.CopyTo(fs);
-                fs.Flush();
-            }
+            _fileHandler.SaveFileToLocation(file, path);
 
             path = RemoveRootFolder(path);
 
