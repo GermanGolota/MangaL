@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using DataAccess.DTOs;
+using FluentValidation;
 using Infrastructure.Commands;
 using Infrastructure.Queries;
 using MediatR;
@@ -27,10 +28,32 @@ namespace MangaLWebAPI.Controllers
         public async Task<IActionResult> GetImageIdsForChapter
          ([FromRoute] string chapterId, CancellationToken token)
         {
+            //TODO: Add validation
             var command = new ChapterImageIdsQuerry(chapterId);
             var responce = await _mediator.Send(command, token);
 
             return Ok(responce);
+        }
+
+        [HttpGet]
+        [Route("{chapterId}")]
+        public async Task<ActionResult<ChapterModel>> GetChapter([FromRoute] string chapterId, CancellationToken token)
+        {
+            //TODO: Add validation
+            try
+            {
+                var querie = new FindChapterQuerie(chapterId);
+                var response = await _mediator.Send(querie, token);
+                return Ok(response);
+            }
+            catch (TaskCanceledException)
+            {
+                return BadRequest("Canceled");
+            }
+            catch (ValidationException exc)
+            {
+                return BadRequest(exc.Message);
+            }
         }
         [HttpPost]
         [Route("addInfo")]
