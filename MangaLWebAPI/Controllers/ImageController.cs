@@ -24,24 +24,9 @@ namespace MangaLWebAPI.Controllers
         {
             this._mediator = mediator;
         }
-        [HttpGet]
-        [Route("{imageId}")]
-        public async Task<IActionResult> GetImagesForChapter([FromRoute] string imageId, CancellationToken token)
-        {
-            var querie = new FindImageQuerie(imageId);
-            Stream stream = await _mediator.Send(querie, token);
-
-            if (stream is null)
-            {
-                return BadRequest();
-            }
-
-            return File(stream, "application/octet-stream");
-        }
-
         [HttpPost]
         [Route("add")]
-        public async Task<IActionResult> UploadImageForManga(IFormFile file, [FromQuery] string chapterId,
+        public async Task<IActionResult> UploadImageForChapter(IFormFile file, [FromQuery] string chapterId,
            [FromQuery] int order, CancellationToken token)
         {
             ImageUploadCommand command = new ImageUploadCommand(file, chapterId, order);
