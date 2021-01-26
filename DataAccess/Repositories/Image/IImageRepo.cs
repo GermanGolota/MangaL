@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -8,7 +9,8 @@ namespace DataAccess.Repositories
 {
     public interface IImageRepo
     {
-        Task<string> GetChapterIdOfImage(string imageId, CancellationToken token);
-        Task UpdatePictureLocation(string pictureId, string location, CancellationToken token);
+        Task<string> GetChapterIdOfImage(string imageId, CancellationToken token = default);
+        Task UpdatePictureLocation(string pictureId, string location, CancellationToken token = default);
+        Task<List<PictureModel>> FindPicturesFor(string chapterId, CancellationToken token = default);
     }
 }

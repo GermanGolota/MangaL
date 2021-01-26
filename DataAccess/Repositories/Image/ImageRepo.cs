@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using DataAccess.DTOs;
 
 namespace DataAccess.Repositories
 {
@@ -15,6 +16,21 @@ namespace DataAccess.Repositories
         {
             this._client = client;
         }
+
+        public async Task<List<PictureModel>> FindPicturesFor(string chapterId, CancellationToken token)
+        {
+            string sql = @"SELECT PictureOrder, ImageLocation FROM Pictures WHERE ChapterId = @ChapterId";
+
+            var parameters = new
+            {
+                ChapterId = chapterId
+            };
+
+            List<PictureModel> pictures = await _client.LoadData<PictureModel, dynamic>(sql, parameters, token);
+
+            return pictures;
+        }
+
         public async Task<string> GetChapterIdOfImage(string imageId, CancellationToken token)
         {
             string sql = @"SELECT ChapterId FROM Pictures WHERE Id = @ImageId";
