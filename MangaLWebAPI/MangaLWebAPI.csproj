@@ -4,6 +4,8 @@
     <UserSecretsId>11046140-76ed-49fc-aa7f-0b56a1f002a5</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="FluentValidation" Version="9.4.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.4.0" />
     <PackageReference Include="MediatR" Version="9.0.0" />

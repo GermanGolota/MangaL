@@ -1,4 +1,5 @@
-﻿using DataAccess;
+﻿using AutoMapper;
+using DataAccess;
 using DataAccess.Repositories;
 using FluentValidation;
 using Infrastructure.Commands;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
@@ -19,7 +21,11 @@ namespace MangaLWebAPI.Extensions
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
-            services.AddMediatR(typeof(ChapterUploadCommand).Assembly);
+            Assembly infrastructureAssembly = typeof(ChapterUploadCommand).Assembly;
+
+            services.AddMediatR(infrastructureAssembly);
+
+            services.AddAutoMapper(infrastructureAssembly);
 
             return services;
         }

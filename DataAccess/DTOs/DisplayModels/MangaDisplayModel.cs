@@ -11,5 +11,6 @@ namespace DataAccess.DTOs
         public string Desription { get; set; }
         public IEnumerable<CommentModel> Comments { get; set; }
         public IEnumerable<ChapterInfoModel> Chapters { get; set; }
+        public string CoverPictureLocation { get; set; }
     }
 }
