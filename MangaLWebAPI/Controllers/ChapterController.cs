@@ -1,4 +1,6 @@
-﻿using Infrastructure.Queries;
+﻿using FluentValidation;
+using Infrastructure.Commands;
+using Infrastructure.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -29,6 +31,27 @@ namespace MangaLWebAPI.Controllers
             var responce = await _mediator.Send(command, token);
 
             return Ok(responce);
+        }
+        [HttpPost]
+        [Route("addInfo")]
+        public async Task<IActionResult> UploadChapterInfo([FromBody] ChapterUploadCommand command,
+            CancellationToken token)
+        {
+            //TODO: Add validation
+            try
+            {
+                string chapterId = await _mediator.Send(command, token);
+
+                return Ok(chapterId);
+            }
+            catch (TaskCanceledException)
+            {
+                return BadRequest("Canceled");
+            }
+            catch (ValidationException exc)
+            {
+                return BadRequest(exc.Message);
+            }
         }
     }
 }

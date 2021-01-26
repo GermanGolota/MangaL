@@ -1,5 +1,8 @@
-﻿using Infrastructure.Queries;
+﻿using FluentValidation;
+using Infrastructure.Commands;
+using Infrastructure.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -35,5 +38,28 @@ namespace MangaLWebAPI.Controllers
 
             return File(stream, "application/octet-stream");
         }
+
+        [HttpPost]
+        [Route("add")]
+        public async Task<IActionResult> UploadImageForManga(IFormFile file, [FromQuery] string chapterId,
+           [FromQuery] int order, CancellationToken token)
+        {
+            ImageUploadCommand command = new ImageUploadCommand(file, chapterId, order);
+            try
+            {
+                string imageId = await _mediator.Send(command, token);
+
+                return Ok(imageId);
+            }
+            catch (TaskCanceledException)
+            {
+                return BadRequest("Canceled");
+            }
+            catch (ValidationException exc)
+            {
+                return BadRequest(exc.Message);
+            }
+        }
+
     }
 }
