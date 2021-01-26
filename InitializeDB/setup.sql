@@ -56,3 +56,6 @@ ALTER TABLE Mangas RENAME COLUMN Desctiption TO Description;
 ALTER TABLE Pictures
 ADD CONSTRAINT OrderInChapterIsUnique UNIQUE(PictureOrder, ChapterId);
 
+ALTER TABLE Mangas
+ADD COLUMN CoverPictureLocation varchar(150);
+

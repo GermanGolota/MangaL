@@ -11,5 +11,6 @@ namespace Core.Entities
         public string Description { get; set; }
         public IEnumerable<Comment> Comments { get; set; }
         public IEnumerable<Chapter> Chapters { get; set; }
+        public string CoverPictureLocation { get; set; }
     }
 }
