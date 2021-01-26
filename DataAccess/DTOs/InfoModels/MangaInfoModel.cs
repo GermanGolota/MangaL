@@ -8,5 +8,6 @@ namespace DataAccess.DTOs
     {
         public string Description { get; set; }
         public string MangaTitle { get; set; }
+        public string CoverPictureLocation { get; set; }
     }
 }

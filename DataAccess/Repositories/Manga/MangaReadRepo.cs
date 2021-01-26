@@ -24,7 +24,8 @@ namespace DataAccess.Repositories
             MangaDisplayModel output = new MangaDisplayModel
             {
                 Desription = infoModel.Description,
-                MangaTitle = infoModel.MangaTitle
+                MangaTitle = infoModel.MangaTitle,
+                CoverPictureLocation = infoModel.CoverPictureLocation
             };
 
             List<ChapterInfoModel> chapters = await LoadChaptersInfoFor(mangaId, token);
@@ -65,7 +66,7 @@ namespace DataAccess.Repositories
 
         public async Task<MangaInfoModel> FindMangaInfoByIDAsync(string mangaId, CancellationToken token)
         {
-            string sql = @"SELECT MangaTitle, Description FROM Mangas WHERE Id=@MangaId";
+            string sql = @"SELECT MangaTitle, Description, CoverPictureLocation FROM Mangas WHERE Id=@MangaId";
 
             var parameters = new
             {
