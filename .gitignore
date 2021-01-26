@@ -31,7 +31,7 @@ bld/
 .vs/
 
 #Ignores development content root path 
-MangaLWebAPI/temp
+MangaLWebAPI/wwwroot
 
 # Visual Studio 2017 auto generated files
 Generated\ Files/

@@ -31,8 +31,7 @@ namespace Infrastructure.Configuration
         }
         public string GetContentRootPath()
         {
-            return _config["ContentRootPath"] ??
-                Path.Combine(Directory.GetCurrentDirectory(), "temp"); ;
+            return "wwwroot";
         }
     }
 }

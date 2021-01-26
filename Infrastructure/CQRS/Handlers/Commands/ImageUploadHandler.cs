@@ -48,10 +48,19 @@ namespace Infrastructure.Handlers
                 fs.Flush();
             }
 
+            path = RemoveRootFolder(path);
+
             await _repo.UpdatePictureLocation(imageId, path, cancellationToken);
 
             return imageId;
         }
+
+        private string RemoveRootFolder(string path)
+        {
+            path = path.Replace("wwwroot", "");
+            return path.Substring(1);
+        }
+
         private string GetFilePath(IFormFile file, string imageId, string chapterId, string mangaId)
         {
             string fileName = Path.GetFileName(file.FileName);
