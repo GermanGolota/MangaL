@@ -72,5 +72,17 @@ namespace DataAccess.Repositories
             return Guid.NewGuid().ToString();
         }
 
+        public async Task UpdateCoverPictureLocation(string coverPictureLocation, string mangaId, CancellationToken token)
+        {
+            string sql = @"UPDATE Mangas SET CoverPictureLocation = @CoverPicture WHERE Mangas.Id = @MangaId";
+
+            var parameters = new
+            {
+                CoverPicture = coverPictureLocation,
+                MangaId = mangaId
+            };
+
+            await _client.SaveData<dynamic>(sql, parameters, token);
+        }
     }
 }
