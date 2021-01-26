@@ -1,10 +1,10 @@
 ﻿using DataAccess;
 using DataAccess.Repositories;
 using FluentValidation;
+using Infrastructure.Configuration;
 using Infrastructure.Hashing;
 using Infrastructure.ModelConverter;
 using Infrastructure.Services;
-using MangaLWebAPI.Configuration;
 using MangaLWebAPI.PipelineBehaviours;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

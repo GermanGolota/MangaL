@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MangaLWebAPI.Configuration
+namespace Infrastructure.Configuration
 {
     public class AppConfiguration
     {

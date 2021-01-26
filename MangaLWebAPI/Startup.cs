@@ -1,22 +1,13 @@
-using DataAccess;
-using DataAccess.Repositories;
-using Infrastructure.Hashing;
-using Infrastructure.Services;
-using MangaLWebAPI.Configuration;
+using Infrastructure.Commands;
+using Infrastructure.Configuration;
 using MangaLWebAPI.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
 
 namespace MangaLWebAPI
 {
@@ -46,7 +37,7 @@ namespace MangaLWebAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MangaLAPI", Version = "v1" });
             });
 
-            services.AddMediatR(typeof(Startup).Assembly);
+            services.AddMediatR(typeof(ChapterUploadCommand).Assembly);
 
             services.AddValidators();
         }

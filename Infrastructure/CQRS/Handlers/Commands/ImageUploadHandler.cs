@@ -6,11 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using DataAccess.DTOs;
 using DataAccess.Repositories;
-using MangaLWebAPI.Configuration;
+using Infrastructure.Commands;
+using Infrastructure.Configuration;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
-namespace MangaLWebAPI.Mediatr
+namespace Infrastructure.Handlers
 {
     public class ImageUploadHandler : IRequestHandler<ImageUploadCommand, string>
     {

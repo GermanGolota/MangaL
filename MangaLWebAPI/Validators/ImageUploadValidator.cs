@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using MangaLWebAPI.Mediatr;
+using Infrastructure.Commands;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

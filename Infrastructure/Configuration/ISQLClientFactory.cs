@@ -1,6 +1,6 @@
 ﻿using DataAccess;
 
-namespace MangaLWebAPI.Configuration
+namespace Infrastructure.Configuration
 {
     public interface ISQLClientFactory
     {

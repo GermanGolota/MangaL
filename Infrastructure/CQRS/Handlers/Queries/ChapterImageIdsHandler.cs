@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DataAccess.Repositories;
+using Infrastructure.Queries;
 using MediatR;
 
 
-namespace MangaLWebAPI.Mediatr
+namespace Infrastructure.Handlers
 {
     public class ChapterImageIdsHandler : IRequestHandler<ChapterImageIdsQuerry, List<string>>
     {

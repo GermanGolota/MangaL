@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace MangaLWebAPI.Mediatr
+namespace Infrastructure.Commands
 {
     public class MangaUploadCommand:IRequest<string>
     {

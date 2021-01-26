@@ -5,9 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using DataAccess.DTOs;
 using DataAccess.Repositories;
+using Infrastructure.Queries;
 using MediatR;
 
-namespace MangaLWebAPI.Mediatr
+namespace Infrastructure.Handlers
 {
     public class FindMangaHandler : IRequestHandler<FindMangaQuerie, MangaDisplayModel>
     {

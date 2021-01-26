@@ -5,10 +5,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DataAccess.Repositories;
-using MangaLWebAPI.Configuration;
+using Infrastructure.Configuration;
+using Infrastructure.Queries;
 using MediatR;
 
-namespace MangaLWebAPI.Mediatr
+namespace Infrastructure.Handlers
 {
     public class FindImageHandler : IRequestHandler<FindImageQuerie, Stream>
     {

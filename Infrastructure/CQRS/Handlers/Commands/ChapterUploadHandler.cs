@@ -5,9 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using DataAccess.DTOs;
 using DataAccess.Repositories;
+using Infrastructure.Commands;
 using MediatR;
 
-namespace MangaLWebAPI.Mediatr.Handlers
+namespace Infrastructure.Handlers
 {
     public class ChapterUploadHandler : IRequestHandler<ChapterUploadCommand, string>
     {

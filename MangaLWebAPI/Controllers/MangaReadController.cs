@@ -1,6 +1,6 @@
 ﻿using DataAccess.DTOs;
 using DataAccess.Repositories;
-using MangaLWebAPI.Mediatr;
+using Infrastructure.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
