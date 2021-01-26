@@ -4,6 +4,7 @@ using FluentValidation;
 using Infrastructure.Commands;
 using Infrastructure.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace MangaLWebAPI.Controllers
 {
     [ApiController]
     [Route("api/manga/")]
-    public class MangaController: ControllerBase
+    public class MangaController : ControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -25,12 +26,12 @@ namespace MangaLWebAPI.Controllers
         }
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<MangaDisplayModel>> GetManga([FromRoute]string id)
+        public async Task<ActionResult<MangaDisplayModel>> GetManga([FromRoute] string id)
         {
             var command = new FindMangaQuerie(id);
             var responce = await _mediator.Send(command);
 
-            if(responce is null)
+            if (responce is null)
             {
                 return BadRequest();
             }
@@ -38,7 +39,7 @@ namespace MangaLWebAPI.Controllers
             return Ok(responce);
         }
 
-        
+
         [HttpPost]
         [Route("addInfo")]
         public async Task<IActionResult> UploadMangaInfo([FromBody] MangaUploadCommand command,
@@ -60,5 +61,16 @@ namespace MangaLWebAPI.Controllers
                 return BadRequest(exc.Message);
             }
         }
+
+        [HttpPost]
+        [Route("updateCover/{mangaId}")]
+        public async Task<IActionResult> UpdateCoveImage([FromRoute] string mangaId, IFormFile file,
+            CancellationToken token)
+        {
+            var command = new UpdateCoverImageCommand(mangaId, file);
+            string location = await _mediator.Send(command, token);
+            return Ok(location);
+        }
+
     }
 }

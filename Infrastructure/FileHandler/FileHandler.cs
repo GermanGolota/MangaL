@@ -21,6 +21,15 @@ namespace Infrastructure.FileHandler
             this._config = config;
         }
 
+        public async Task<string> CreateCoverPicturePath(string mangaId, string fileExtension)
+        {
+            string rootFolder = _config.GetContentRootPath();
+            string mangaFolder = Path.Combine(rootFolder, "Mangas", $"{mangaId}");
+            string file = Path.ChangeExtension("cover", fileExtension);
+            string coverPicturePath = Path.Combine(mangaFolder, file);
+            return coverPicturePath;
+        }
+
         public async Task<string> CreateImagePath(string fileName, string chapterId, string imageId)
         {
             string fileExtension = Path.GetExtension(fileName);

@@ -4,6 +4,7 @@ using DataAccess.Repositories;
 using FluentValidation;
 using Infrastructure.Commands;
 using Infrastructure.Configuration;
+using Infrastructure.FileHandler;
 using Infrastructure.Hashing;
 using MangaLWebAPI.PipelineBehaviours;
 using MediatR;
@@ -26,6 +27,8 @@ namespace MangaLWebAPI.Extensions
             services.AddMediatR(infrastructureAssembly);
 
             services.AddAutoMapper(infrastructureAssembly);
+
+            services.AddScoped<IFileHandler, FileHandler>();
 
             return services;
         }
