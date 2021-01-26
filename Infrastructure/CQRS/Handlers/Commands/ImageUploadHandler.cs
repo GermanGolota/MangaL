@@ -15,14 +15,16 @@ namespace Infrastructure.Handlers
 {
     public class ImageUploadHandler : IRequestHandler<ImageUploadCommand, string>
     {
-        private readonly IMangaWriteRepo _repo;
+        private readonly IMangaWriteRepo _mangaRepo;
         private readonly IChapterRepo _chapterRepo;
+        private readonly IImageRepo _imageRepo;
         private readonly AppConfiguration _config;
 
-        public ImageUploadHandler(IMangaWriteRepo repo, IChapterRepo readRepo, AppConfiguration config)
+        public ImageUploadHandler(IMangaWriteRepo repo, IChapterRepo readRepo, IImageRepo imageRepo,AppConfiguration config)
         {
-            this._repo = repo;
+            this._mangaRepo = repo;
             this._chapterRepo = readRepo;
+            this._imageRepo = imageRepo;
             this._config = config;
         }
         public async Task<string> Handle(ImageUploadCommand request, CancellationToken cancellationToken)
@@ -36,7 +38,7 @@ namespace Infrastructure.Handlers
                 PictureOrder = request.Order
             };
 
-            string imageId = await _repo.SavePictureReturnId(picture, cancellationToken);
+            string imageId = await _mangaRepo.SavePictureReturnId(picture, cancellationToken);
 
             string mangaId = await _chapterRepo.FindMangaIdForChapter(chapterId, cancellationToken);
 
@@ -50,7 +52,7 @@ namespace Infrastructure.Handlers
 
             path = RemoveRootFolder(path);
 
-            await _repo.UpdatePictureLocation(imageId, path, cancellationToken);
+            await _imageRepo.UpdatePictureLocation(imageId, path, cancellationToken);
 
             return imageId;
         }

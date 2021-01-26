@@ -12,6 +12,5 @@ namespace DataAccess.Repositories
         Task<string> SaveMangaReturnId(MangaAdditionModel info, CancellationToken token);
         Task<string> SaveChapterReturnId(ChapterAdditionModel info, CancellationToken token);
         Task<string> SavePictureReturnId(PictureAdditionModel info, CancellationToken token);
-        Task UpdatePictureLocation(string pictureId, string location, CancellationToken token);
     }
 }

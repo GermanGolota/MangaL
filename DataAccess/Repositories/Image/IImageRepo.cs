@@ -9,5 +9,6 @@ namespace DataAccess.Repositories
     public interface IImageRepo
     {
         Task<string> GetChapterIdOfImage(string imageId, CancellationToken token);
+        Task UpdatePictureLocation(string pictureId, string location, CancellationToken token);
     }
 }

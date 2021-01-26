@@ -28,5 +28,20 @@ namespace DataAccess.Repositories
 
             return matches.FirstOrDefault();
         }
+
+        public async Task UpdatePictureLocation(string pictureId, string location, CancellationToken token)
+        {
+            string sql = @"UPDATE Pictures
+                           SET ImageLocation = @ImageLocation
+                           WHERE Id = @PictureId";
+
+            var parameters = new
+            {
+                ImageLocation = location,
+                PictureId = pictureId
+            };
+
+            await _client.SaveData<dynamic>(sql, parameters, token);
+        }
     }
 }
