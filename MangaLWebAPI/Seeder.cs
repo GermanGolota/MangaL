@@ -103,7 +103,7 @@ namespace MangaLWebAPI
                     FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read);
 
                     IFormFile formFile = new FormFile(file, 0, file.Length,
-                        "Alexander", "Oleg");
+                        "Alexander", "Oleg.jpg");
                     pictureToFile.Add(picture, formFile);
                 }
 

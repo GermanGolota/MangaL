@@ -34,7 +34,7 @@ namespace Infrastructure.FileHandler
         {
             string fileExtension = Path.GetExtension(fileName);
 
-            var newFileName = String.Concat(imageId, fileExtension);
+            var newFileName = Path.ChangeExtension(imageId, fileExtension);
 
             string mangaId = await _chapterRepo.FindMangaIdForChapter(chapterId, CancellationToken.None);
 

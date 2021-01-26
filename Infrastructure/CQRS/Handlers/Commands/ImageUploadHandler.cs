@@ -40,7 +40,7 @@ namespace Infrastructure.Handlers
 
             string imageId = await _mangaRepo.SavePictureReturnId(picture, cancellationToken);
 
-            string fileName = Path.GetFileName(file.FileName);
+            string fileName = file.FileName;
 
             string path = await _fileHandler.CreateImagePath(fileName, chapterId, imageId);
 
