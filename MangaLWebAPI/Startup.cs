@@ -19,12 +19,20 @@ namespace MangaLWebAPI
         }
 
         public IConfiguration Configuration { get; }
-
+        private const string WebUIPolicyName = "WebUIClientPolicy";
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
             services.AddSingleton<AppConfiguration>();
+            //needs to be redone in production
+            services.AddCors(options =>
+            {
+                options.AddPolicy(WebUIPolicyName, builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().WithMethods("GET");
+                });
+            });
 
             services.AddHashing();
 
@@ -56,6 +64,8 @@ namespace MangaLWebAPI
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseCors(WebUIPolicyName);
 
             app.UseRouting();
 
