@@ -1,0 +1,28 @@
+@import "bootstrap";
+
+.nav-bar-logo {
+  max-height: 50px;
+  max-width: 50px;
+}
+
+.nav-bar-item {
+  text-decoration: none;
+}
+
+.nav-bar {
+  padding: 0.75rem 0;
+  background-color: wheat;
+}
+.nav-bar-header {
+  @extend .mx-4;
+  color: black;
+  font-size: larger;
+}
+.nav-bar-button {
+  @extend .mr-4;
+  background-color: yellowgreen;
+}
+
+.nav-bar-button-header {
+  color: wheat;
+}
