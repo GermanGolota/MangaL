@@ -6,10 +6,10 @@ using MediatR;
 
 namespace Infrastructure.Queries
 {
-    public class ChapterImageIdsQuerry : IRequest<List<string>>
+    public class ChapterImageIdsQuerie : IRequest<List<string>>
     {
         public string ChapterId { get; set; }
-        public ChapterImageIdsQuerry(string chapterId)
+        public ChapterImageIdsQuerie(string chapterId)
         {
             ChapterId = chapterId;
         }

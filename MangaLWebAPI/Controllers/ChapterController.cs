@@ -29,7 +29,7 @@ namespace MangaLWebAPI.Controllers
          ([FromRoute] string chapterId, CancellationToken token)
         {
             //TODO: Add validation
-            var command = new ChapterImageIdsQuerry(chapterId);
+            var command = new ChapterImageIdsQuerie(chapterId);
             var responce = await _mediator.Send(command, token);
 
             return Ok(responce);
