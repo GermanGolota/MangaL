@@ -2,7 +2,7 @@ import { IComment } from "./IComment";
 
 export interface IManga{
   mangaTitle: string;
-  desription: string;
+  description: string;
   comments: IComment[];
   chapters: ChapterInfoModel[];
   coverPictureLocation: string;
