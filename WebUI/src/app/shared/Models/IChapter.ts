@@ -1,5 +1,6 @@
+import { IPicture } from "./IPicture";
 
-export interface IPicture {
-  imageLocation: string;
-  pictureOrder: number;
+export interface IChapter {
+  chapterName: string;
+  pictures: IPicture[];
 }

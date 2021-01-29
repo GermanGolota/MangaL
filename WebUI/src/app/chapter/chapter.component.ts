@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IChapter } from '../shared/Models/IPicture';
+import { IChapter } from '../shared/Models/IChapter';
 import { ChapterService } from './chapter.service';
 
 @Component({
