@@ -23,7 +23,7 @@ namespace DataAccess.Repositories
             var infoModel = await FindMangaInfoByIDAsync(mangaId, token);
             MangaDisplayModel output = new MangaDisplayModel
             {
-                Desription = infoModel.Description,
+                Description = infoModel.Description,
                 MangaTitle = infoModel.MangaTitle,
                 CoverPictureLocation = infoModel.CoverPictureLocation
             };
@@ -89,7 +89,17 @@ namespace DataAccess.Repositories
 
             var results =  await  _client.LoadDataNoParam<MangaDisplayModel>(sql, token);
 
-            return results.FirstOrDefault();
+            var output = results.FirstOrDefault();
+
+            List<ChapterInfoModel> chapters = await LoadChaptersInfoFor(output.Id, token);
+
+            output.Chapters = chapters;
+
+            List<CommentModel> comments = await LoadCommentsFor(output.Id, token);
+
+            output.Comments = comments;
+
+            return output;
         }
     }
 }
