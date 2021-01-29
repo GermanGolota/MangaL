@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IChapter } from '../shared/Models/IChapter';
-import { ChapterService } from './chapter.service';
+import { ActivatedRoute } from '@angular/router';
+import { IChapter } from '../../../shared/Models/IChapter';
+import { MangaService } from '../../manga.service';
 
 @Component({
   selector: 'app-chapter',
@@ -9,20 +10,19 @@ import { ChapterService } from './chapter.service';
 })
 export class ChapterComponent implements OnInit {
 
-  _service:ChapterService;
   chapter:IChapter;
 
   @Input() chapterId:string;
 
-  constructor(service:ChapterService) { 
-    this._service = service;
+  constructor(private readonly service:MangaService, private _Activatedroute:ActivatedRoute) { 
+    this.chapterId = _Activatedroute.snapshot.paramMap.get("chapterId");
   }
 
   ngOnInit(): void {
     this.getChapter();
   }
   getChapter():void{
-    this._service.GetChapterBy(this.chapterId).subscribe
+    this.service.getChapterBy(this.chapterId).subscribe
     (
       response=>{
         this.chapter = response;

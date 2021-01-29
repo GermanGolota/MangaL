@@ -1,0 +1,8 @@
+{{ chapter.chapterName }}
+<ul>
+  <div *ngFor="let image of chapter.pictures">
+    <li class="list-unstyled">
+      <img src="{{ image.imageLocation }}" alt="{{ image.pictureOrder }}" />
+    </li>
+  </div>
+</ul>
