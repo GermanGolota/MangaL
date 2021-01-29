@@ -80,6 +80,16 @@ namespace DataAccess.Repositories
 
             return output;
         }
-        
+
+        public async Task<MangaDisplayModel> GetRandomManga(CancellationToken token)
+        {
+            string sql = @"SELECT * FROM Mangas
+                            ORDER BY RAND()
+                            LIMIT 1;";
+
+            var results =  await  _client.LoadDataNoParam<MangaDisplayModel>(sql, token);
+
+            return results.FirstOrDefault();
+        }
     }
 }

@@ -10,7 +10,7 @@ using MediatR;
 
 namespace Infrastructure.Handlers
 {
-    public class ChapterImageIdsHandler : IRequestHandler<ChapterImageIdsQuerry, List<string>>
+    public class ChapterImageIdsHandler : IRequestHandler<ChapterImageIdsQuerie, List<string>>
     {
         private readonly IChapterRepo _repo;
 
@@ -18,7 +18,7 @@ namespace Infrastructure.Handlers
         {
             this._repo = repo;
         }
-        public async Task<List<string>> Handle(ChapterImageIdsQuerry request, CancellationToken cancellationToken)
+        public async Task<List<string>> Handle(ChapterImageIdsQuerie request, CancellationToken cancellationToken)
         {
             return await _repo.GetImageIdsFor(request.ChapterId, cancellationToken);
         }

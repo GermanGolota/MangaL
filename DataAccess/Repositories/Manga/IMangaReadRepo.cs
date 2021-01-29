@@ -12,5 +12,6 @@ namespace DataAccess.Repositories
     {
         Task<MangaInfoModel> FindMangaInfoByIDAsync(string mangaId, CancellationToken token);
         Task<MangaDisplayModel> FindMangaById(string mangaId, CancellationToken token);
+        Task<MangaDisplayModel> GetRandomManga(CancellationToken token);
     }
 }
