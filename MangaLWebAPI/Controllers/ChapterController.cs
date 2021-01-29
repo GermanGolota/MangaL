@@ -40,20 +40,11 @@ namespace MangaLWebAPI.Controllers
         public async Task<ActionResult<ChapterModel>> GetChapter([FromRoute] string chapterId, CancellationToken token)
         {
             //TODO: Add validation
-            try
-            {
-                var querie = new FindChapterQuerie(chapterId);
-                var response = await _mediator.Send(querie, token);
-                return Ok(response);
-            }
-            catch (TaskCanceledException)
-            {
-                return BadRequest("Canceled");
-            }
-            catch (ValidationException exc)
-            {
-                return BadRequest(exc.Message);
-            }
+
+            var querie = new FindChapterQuerie(chapterId);
+            var response = await _mediator.Send(querie, token);
+            return Ok(response);
+
         }
         [HttpPost]
         [Route("addInfo")]
@@ -61,20 +52,10 @@ namespace MangaLWebAPI.Controllers
             CancellationToken token)
         {
             //TODO: Add validation
-            try
-            {
-                string chapterId = await _mediator.Send(command, token);
+            string chapterId = await _mediator.Send(command, token);
 
-                return Ok(chapterId);
-            }
-            catch (TaskCanceledException)
-            {
-                return BadRequest("Canceled");
-            }
-            catch (ValidationException exc)
-            {
-                return BadRequest(exc.Message);
-            }
+            return Ok(chapterId);
+
         }
     }
 }

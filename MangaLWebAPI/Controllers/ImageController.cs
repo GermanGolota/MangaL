@@ -30,20 +30,10 @@ namespace MangaLWebAPI.Controllers
            [FromQuery] int order, CancellationToken token)
         {
             ImageUploadCommand command = new ImageUploadCommand(file, chapterId, order);
-            try
-            {
-                string imageId = await _mediator.Send(command, token);
 
-                return Ok(imageId);
-            }
-            catch (TaskCanceledException)
-            {
-                return BadRequest("Canceled");
-            }
-            catch (ValidationException exc)
-            {
-                return BadRequest(exc.Message);
-            }
+            string imageId = await _mediator.Send(command, token);
+
+            return Ok(imageId);
         }
 
     }

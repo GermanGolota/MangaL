@@ -46,20 +46,10 @@ namespace MangaLWebAPI.Controllers
             CancellationToken token)
         {
             //TODO: Add validation
-            try
-            {
-                string mangaId = await _mediator.Send(command, token);
+            string mangaId = await _mediator.Send(command, token);
 
-                return Ok(mangaId);
-            }
-            catch (TaskCanceledException)
-            {
-                return BadRequest("Canceled");
-            }
-            catch (ValidationException exc)
-            {
-                return BadRequest(exc.Message);
-            }
+            return Ok(mangaId);
+
         }
 
         [HttpPost]
