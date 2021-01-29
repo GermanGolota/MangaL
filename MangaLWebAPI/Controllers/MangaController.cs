@@ -71,6 +71,16 @@ namespace MangaLWebAPI.Controllers
             string location = await _mediator.Send(command, token);
             return Ok(location);
         }
+        [HttpGet]
+        [Route("random")]
+        public async Task<ActionResult<MangaDisplayModel>> GetRandomManga(CancellationToken cancellationToken)
+        {
+            var command = new RandomMangaQuerie();
+
+            MangaDisplayModel manga = await _mediator.Send(command, cancellationToken);
+
+            return manga;
+        }
 
     }
 }
