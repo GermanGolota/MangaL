@@ -54,14 +54,13 @@ namespace MangaLWebAPI
 
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MangaL API v1"));
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
+            if (env.IsProduction())
             {
                 app.UseHsts();
             }
+
+            app.UseExceptionHandler(handler => handler.UseCustomErrors(env));
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
