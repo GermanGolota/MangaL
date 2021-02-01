@@ -1,0 +1,11 @@
+@import "bootstrap";
+
+.chapterinfo-list {
+  @extend .list-group;
+  @extend .mx-4;
+}
+
+.chapterinfo-item {
+  @extend .list-group-item;
+  background-color: wheat;
+}

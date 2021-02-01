@@ -1,0 +1,7 @@
+<ul class="chapterinfo-list">
+  <div *ngFor="let chapter of chapters">
+    <li [routerLink]="['/chapter', chapter.chapterId]" class="chapterinfo-item">
+      <app-chapter-info [chapter]="chapter"></app-chapter-info>
+    </li>
+  </div>
+</ul>
