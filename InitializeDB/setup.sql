@@ -11,7 +11,8 @@ CREATE TABLE Users(
 CREATE TABLE Mangas(
   Id varchar(45) NOT NULL PRIMARY KEY,
   MangaTitle varchar(200),
-  Desctiption varchar(1000)
+  MangaDescription varchar(1000),
+  CoverPictureLocation varchar(150)
 );
 
 CREATE TABLE Chapters(
@@ -48,14 +49,6 @@ CREATE TABLE Pictures(
   ChapterId varchar(45),
   FOREIGN KEY(ChapterId)
     REFERENCES Chapters(ID)
-    ON DELETE CASCADE
+    ON DELETE CASCADE,
+  CONSTRAINT OrderInChapterIsUnique UNIQUE(PictureOrder, ChapterId)
 );
-
-ALTER TABLE Mangas RENAME COLUMN Desctiption TO Description;
-
-ALTER TABLE Pictures
-ADD CONSTRAINT OrderInChapterIsUnique UNIQUE(PictureOrder, ChapterId);
-
-ALTER TABLE Mangas
-ADD COLUMN CoverPictureLocation varchar(150);
-
