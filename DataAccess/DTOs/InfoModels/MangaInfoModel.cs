@@ -6,7 +6,7 @@ namespace DataAccess.DTOs
 {
     public class MangaInfoModel
     {
-        public string Description { get; set; }
+        public string MangaDescription { get; set; }
         public string MangaTitle { get; set; }
         public string CoverPictureLocation { get; set; }
     }

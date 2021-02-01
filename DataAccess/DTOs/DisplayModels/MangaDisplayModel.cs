@@ -8,7 +8,7 @@ namespace DataAccess.DTOs
     public class MangaDisplayModel
     {
         public string MangaTitle { get; set; }
-        public string Description { get; set; }
+        public string MangaDescription { get; set; }
         public IEnumerable<CommentModel> Comments { get; set; }
         public IEnumerable<ChapterInfoModel> Chapters { get; set; }
         public string CoverPictureLocation { get; set; }
