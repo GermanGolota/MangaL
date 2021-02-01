@@ -28,11 +28,11 @@ namespace Infrastructure.Handlers
             string extension = Path.GetExtension(fileName);
             string coverPictureLocation = await _handler.CreateCoverPicturePath(request.MangaId, extension);
 
-            await _repo.UpdateCoverPictureLocation(coverPictureLocation, request.MangaId, cancellationToken);
-
             _handler.SaveFileToLocation(request.File, coverPictureLocation);
 
             coverPictureLocation = RemoveRootFolder(coverPictureLocation);
+
+            await _repo.UpdateCoverPictureLocation(coverPictureLocation, request.MangaId, cancellationToken);
 
             return coverPictureLocation;
         }
