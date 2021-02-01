@@ -1,0 +1,13 @@
+.chapter-chapterName {
+  background-color: whitesmoke;
+}
+
+.chapter-chapterNumber {
+  background-color: whitesmoke;
+}
+.chapter-container {
+  display: flex !important;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
