@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable} from '@angular/core';
 import { Observable} from 'rxjs';
-import { IChapter } from '../shared/Models/IChapter';
 import { IManga } from '../shared/Models/IManga';
 
 @Injectable({
@@ -19,10 +18,5 @@ export class MangaService{
   getRandomManga():Observable<IManga>{
     let url = this.baseurl + "manga/random";
     return this.http.get<IManga>(url);
-  }
-    public getChapterBy(chapterId:string):Observable<IChapter>
-  {
-    let url = this.baseurl +"chapter/"+chapterId;
-    return this.http.get<IChapter>(url);
   }
 }

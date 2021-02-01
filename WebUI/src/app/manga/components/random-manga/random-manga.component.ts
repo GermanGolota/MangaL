@@ -17,7 +17,6 @@ export class RandomMangaComponent implements OnInit {
     this.service.getRandomManga().subscribe(
       result=>{
         this.manga = result;
-        console.log(result);
       },
       error=>{
         console.log(error);

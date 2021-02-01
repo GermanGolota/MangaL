@@ -4,26 +4,23 @@ import { SharedModule } from '../shared/shared.module';
 import { MangaService } from './manga.service';
 import { MangaComponent } from './components/manga/manga.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ChapterInfoComponent } from './components/chapter-info/chapter-info.component';
-import { CommentComponent } from './components/comment/comment.component';
 import { RandomMangaComponent } from './components/random-manga/random-manga.component';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../app-routing.module';
-import { ChapterComponent } from './components/chapter/chapter.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { ChapterListComponent } from './components/chapter-list/chapter-list.component';
-import { CommentsListComponent } from './components/comments-list/comments-list.component';
+
 import { MangaInfoComponent } from './components/manga-info/manga-info.component';
+import { ChapterModule } from '../chapter/chapter.module';
+import { CommentModule } from '../comment/comment.module';
 
 @NgModule({
-  declarations: [MangaComponent, ChapterInfoComponent, CommentComponent, RandomMangaComponent, ChapterComponent, ChapterListComponent, CommentsListComponent, MangaInfoComponent],
+  declarations: [MangaComponent, RandomMangaComponent, MangaInfoComponent],
   imports: [
     CommonModule,
     SharedModule,
     HttpClientModule,
-    FormsModule,
-    AppRoutingModule,
-    BrowserModule
+    ChapterModule,
+    CommentModule
   ],
   providers:[
     MangaService
