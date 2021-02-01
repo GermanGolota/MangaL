@@ -1,18 +1,5 @@
 <div *ngIf="manga != null">
-  <img src="{{ manga.coverPictureLocation }}" alt="Cover Picture" />
-  <div>{{ manga.description }}</div>
-  <ul>
-    <div *ngFor="let chapter of manga.chapters">
-      <a [routerLink]="['/chapter', chapter.chapterId]">
-        <li>
-          <app-chapter-info [chapter]="chapter"></app-chapter-info>
-        </li>
-      </a>
-    </div>
-  </ul>
-  <ul *ngFor="let comment of manga.comments">
-    <li>
-      <app-comment [comment]="comment"></app-comment>
-    </li>
-  </ul>
+  <app-manga-info [manga]="manga"></app-manga-info>
+  <app-chapter-list [chapters]="manga.chapters"></app-chapter-list>
+  <app-comments-list [comments]="manga.comments"></app-comments-list>
 </div>

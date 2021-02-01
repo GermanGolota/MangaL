@@ -11,9 +11,12 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../app-routing.module';
 import { ChapterComponent } from './components/chapter/chapter.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { ChapterListComponent } from './components/chapter-list/chapter-list.component';
+import { CommentsListComponent } from './components/comments-list/comments-list.component';
+import { MangaInfoComponent } from './components/manga-info/manga-info.component';
 
 @NgModule({
-  declarations: [MangaComponent, ChapterInfoComponent, CommentComponent, RandomMangaComponent, ChapterComponent],
+  declarations: [MangaComponent, ChapterInfoComponent, CommentComponent, RandomMangaComponent, ChapterComponent, ChapterListComponent, CommentsListComponent, MangaInfoComponent],
   imports: [
     CommonModule,
     SharedModule,
