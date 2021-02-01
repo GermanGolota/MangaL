@@ -30,6 +30,13 @@ namespace Infrastructure.FileHandler
             return coverPicturePath;
         }
 
+        public string CreateFullUrlFromStored(string storedUrl)
+        {
+            string urlBase = _config.GetAPIUrl();
+            string path = Path.Combine(urlBase, storedUrl);
+            return new Uri(path).AbsoluteUri;
+        }
+
         public async Task<string> CreateImagePath(string fileName, string chapterId, string imageId)
         {
             string fileExtension = Path.GetExtension(fileName);

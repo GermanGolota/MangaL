@@ -11,6 +11,7 @@ namespace Infrastructure.FileHandler
         void SaveFileToLocation(IFormFile file, string location);
         Task<string> CreateImagePath(string fileName, string chapterId, string imageId);
         Task<string> CreateCoverPicturePath(string mangaId, string fileExtension);
+        string CreateFullUrlFromStored(string storedUrl);
 
     }
 }
