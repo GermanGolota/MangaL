@@ -1,13 +1,7 @@
-﻿using FluentValidation;
-using Infrastructure.Commands;
-using Infrastructure.Queries;
+﻿using Application.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -1,4 +1,4 @@
-using Infrastructure.Commands;
+using Infrastructure.Extensions;
 using Infrastructure.Configuration;
 using MangaLWebAPI.Extensions;
 using MediatR;
@@ -24,7 +24,6 @@ namespace MangaLWebAPI
         {
             services.AddControllers();
 
-            services.AddSingleton<AppConfiguration>();
             //needs to be redone in production
             services.AddCors(options =>
             {
@@ -34,18 +33,15 @@ namespace MangaLWebAPI
                 });
             });
 
-            services.AddHashing();
-
-            services.AddRepositories();
-
-            services.AddInfrastructureServices();
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MangaLAPI", Version = "v1" });
             });
 
+            services.AddInfrastructure();
+
             services.AddValidators();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

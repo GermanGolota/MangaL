@@ -1,12 +1,8 @@
-﻿using DataAccess.DTOs;
-using FluentValidation;
-using Infrastructure.Commands;
-using Infrastructure.Queries;
+﻿using Application.Commands;
+using Application.DTOs;
+using Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

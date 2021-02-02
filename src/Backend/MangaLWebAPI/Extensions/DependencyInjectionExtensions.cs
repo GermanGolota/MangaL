@@ -1,65 +1,12 @@
-﻿using AutoMapper;
-using DataAccess;
-using DataAccess.Repositories;
-using FluentValidation;
-using Infrastructure.Commands;
-using Infrastructure.Configuration;
-using Infrastructure.FileHandler;
-using Infrastructure.Hashing;
+﻿using FluentValidation;
 using MangaLWebAPI.PipelineBehaviours;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
 
 namespace MangaLWebAPI.Extensions
 {
     public static class DependencyInjectionExtensions
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
-        {
-            Assembly infrastructureAssembly = typeof(ChapterUploadCommand).Assembly;
-
-            services.AddMediatR(infrastructureAssembly);
-
-            services.AddAutoMapper(infrastructureAssembly);
-
-            services.AddScoped<IFileHandler, FileHandler>();
-
-            return services;
-        }
-
-        public static IServiceCollection AddRepositories(this IServiceCollection services)
-        {
-            services.AddSingleton<ISQLClientFactory, SQLClientFactory>();
-
-            services.AddScoped<ISQLClient>(x => x.GetRequiredService<ISQLClientFactory>().CreateClient());
-
-            services.AddScoped<IUserRepo, UserRepo>();
-
-            services.AddScoped<IMangaReadRepo, MangaReadRepo>();
-
-            services.AddScoped<IMangaWriteRepo, MangaWriteRepo>();
-
-            services.AddScoped<IChapterRepo, ChapterRepo>();
-
-            services.AddScoped<IImageRepo, ImageRepo>();
-
-            return services;
-        }
-        public static IServiceCollection AddHashing(this IServiceCollection services)
-        {
-
-            services.AddSingleton<HashAlgorithm>(MD5.Create());
-            services.AddSingleton<IHasher, Hasher>();
-
-            return services;
-        }
-
         public static IServiceCollection AddValidators(this IServiceCollection services)
         {
             services.AddValidatorsFromAssembly(typeof(Startup).Assembly);

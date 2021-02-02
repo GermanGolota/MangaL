@@ -1,10 +1,6 @@
-﻿using FluentValidation;
-using Infrastructure.Commands;
+﻿using Application.Commands;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MangaLWebAPI.Validators
 {
