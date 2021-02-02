@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MangaLWebAPI\MangaLWebAPI.csproj" />
+    <ProjectReference Include="..\..\src\Backend\MangaLWebAPI\MangaLWebAPI.csproj" />
   </ItemGroup>
 
 </Project>
