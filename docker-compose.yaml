@@ -1,10 +1,23 @@
-db:
-  build: ./InitializeDB
-  environment:
-    MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-  expose:
-    - "3306"
-  ports:
-    - "3306:3306"
-api:
+version: "3"
+services:
+  db:
+    build: ./InitializeDB
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+  api:
     build: ./src/Backend
+    environment:
+      SeedData: "true"
+      APIUri: "https://localhost:5001/"
+      DBUsername: "root"
+      Port: 3306
+      DBServer: "db"
+      DBPassword: "password"
+      DBName: "mangaldb"
+    depends_on:
+      - "db"
+    restart: unless-stopped

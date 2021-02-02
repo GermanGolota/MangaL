@@ -19,7 +19,7 @@ namespace Infrastructure.Configuration
         {
             string server = _config["DBServer"] ?? "localhost";
             string port = _config["Port"] ?? "3306";
-            string dbName = "mangaldb";
+            string dbName = _config["DBName"]?? "mangaldb";
             string username = _config["DBUsername"] ?? "root";
             string password = _config["DBPassword"] ??
                 throw new Exception("Please provide a password");

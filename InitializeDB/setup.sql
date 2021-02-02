@@ -1,4 +1,4 @@
-create database mangaldb;
+CREATE DATABASE mangaldb; 
 
 use mangaldb;
 
