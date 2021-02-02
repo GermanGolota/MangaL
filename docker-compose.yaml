@@ -6,3 +6,5 @@ db:
     - "3306"
   ports:
     - "3306:3306"
+api:
+    build: ./src/Backend
